@@ -33,8 +33,10 @@ static int cmd_c(char *args) {
 }
 
 static int cmd_si(char *args) {
-	char *arg = strtok(NULL, " ");
-	int numSteps = atoi(arg);
+	const char *arg = strtok(NULL, " ");
+	int numSteps = 1;
+	if(arg != NULL)
+		numSteps = atoi(arg);
 	cpu_exec(numSteps);
 	return 0;
 }
@@ -43,15 +45,15 @@ static int cmd_info(char *args) {
 	char *arg = strtok(NULL, " ");
 	bool flag = false;
 	if(!strcmp(arg, "r") || strcmp(arg, "R")) {
-		printf("EAX: %08X\t", cpu.eax);
-		printf("EBX: %08X\t", cpu.ebx);
-		printf("ECX: %08X\n", cpu.ecx);
-		printf("EAX: %08X\t", cpu.edx);
-		printf("EBX: %08X\t", cpu.esp);
-		printf("ECX: %08X\n", cpu.ebp);
-		printf("EAX: %08X\t", cpu.esi);
-		printf("EBX: %08X\t", cpu.edi);
-		printf("ECX: %08X\n", cpu.eip);
+		printf("EAX: 0x%08X\t", cpu.eax);
+		printf("EBX: 0x%08X\t", cpu.ebx);
+		printf("ECX: 0x%08X\n", cpu.ecx);
+		printf("EDX: 0x%08X\t", cpu.edx);
+		printf("ESP: 0x%08X\t", cpu.esp);
+		printf("EBP: 0x%08X\n", cpu.ebp);
+		printf("ESI: 0x%08X\t", cpu.esi);
+		printf("EDI: 0x%08X\t", cpu.edi);
+		printf("EIP: 0x%08X\n", cpu.eip);
 		flag = true;
 	}
 	if(!flag) {
