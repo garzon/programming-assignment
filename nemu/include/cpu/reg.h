@@ -14,13 +14,15 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * For more details about the register encoding scheme, see i386 manual.
  */
 
+#define CPU_REG_NUM (8)
+
 typedef struct {
 	union {
 		union {
 			uint32_t _32;
 			uint16_t _16;
 			uint8_t _8[2];
-		} gpr[8];
+		} gpr[CPU_REG_NUM];
 
 		/* Do NOT change the order of the GPRs' definitions. */
 

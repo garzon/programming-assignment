@@ -32,6 +32,34 @@ static int cmd_c(char *args) {
 	return 0;
 }
 
+static int cmd_si(char *args) {
+	char *arg = strtok(NULL, " ");
+	int numSteps = atoi(arg);
+	cpu_exec(numSteps);
+	return 0;
+}
+
+static int cmd_info(char *args) {
+	char *arg = strtok(NULL, " ");
+	bool flag = false;
+	if(!strcmp(arg, "r") || strcmp(arg, "R")) {
+		printf("EAX: %08X\t", cpu.eax);
+		printf("EBX: %08X\t", cpu.ebx);
+		printf("ECX: %08X\n", cpu.ecx);
+		printf("EAX: %08X\t", cpu.edx);
+		printf("EBX: %08X\t", cpu.esp);
+		printf("ECX: %08X\n", cpu.ebp);
+		printf("EAX: %08X\t", cpu.esi);
+		printf("EBX: %08X\t", cpu.edi);
+		printf("ECX: %08X\n", cpu.eip);
+		flag = true;
+	}
+	if(!flag) {
+		printf("Invalid argument for command 'info'.\n");
+	}
+	return 0;
+}
+
 static int cmd_q(char *args) {
 	return -1;
 }
@@ -43,8 +71,10 @@ static struct {
 	char *description;
 	int (*handler) (char *);
 } cmd_table [] = {
-	{ "help", "Display informations about all supported commands", cmd_help },
-	{ "c", "Continue the execution of the program", cmd_c },
+	{ "help", "help [cmd]: Display informations about all supported commands", cmd_help },
+	{ "c", "c: Continue the execution of the program", cmd_c },
+	{ "si", "si [n]: Single step", cmd_si },
+	{ "info", "info [type]: \n\ttype='r': print all registers", cmd_info },
 	{ "q", "Exit NEMU", cmd_q },
 
 	/* TODO: Add more commands */
