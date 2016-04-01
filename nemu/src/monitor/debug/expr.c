@@ -222,7 +222,7 @@ uint32_t eval(int p, int q) {
 		return invalid_expr();
 	}
 	else if(p == q) {
-		printf("token: %s %d %d\n", tokens[p].str, tokens[p].category, VALUE);
+		printf("token: %s %d %d\n", tokens[p].str, tokens[p].type, INTEGER);
 		if(tokens[p].category != VALUE)
 			return invalid_expr();
 		switch(tokens[p].type) {
