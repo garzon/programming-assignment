@@ -221,7 +221,8 @@ uint32_t eval(int p, int q) {
 	if(p > q) {
 		return invalid_expr();
 	}
-	else if(p == q) { 
+	else if(p == q) {
+		printf("token: %s\n", tokens[p].str);
 		if(tokens[p].category != VALUE)
 			return invalid_expr();
 		switch(tokens[p].type) {

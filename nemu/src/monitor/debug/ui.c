@@ -67,7 +67,7 @@ static int cmd_p(char *args) {
 	uint32_t res = expr(args, &invalid);
 
 	if(invalid) {
-		printf("Invalid expression.");
+		printf("Invalid expression.\n");
 	} else {
 		printf("eval result: %X\n", res);
 	}
