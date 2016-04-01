@@ -223,8 +223,10 @@ uint32_t eval(int p, int q) {
 	}
 	else if(p == q) {
 		printf("token: %s %d %d\n", tokens[p].str, tokens[p].type, INTEGER);
-		if(tokens[p].category != VALUE)
+		if(tokens[p].category != VALUE) {
+			printf("12");
 			return invalid_expr();
+		}
 		switch(tokens[p].type) {
 			case INTEGER:
 				printf("1");
