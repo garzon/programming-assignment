@@ -63,10 +63,10 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_p(char *args) {
-	bool invalid;
-	uint32_t res = expr(args, &invalid);
+	bool succ;
+	uint32_t res = expr(args, &succ);
 
-	if(invalid) {
+	if(!succ) {
 		printf("Invalid expression.\n");
 	} else {
 		printf("eval result: %X\n", res);

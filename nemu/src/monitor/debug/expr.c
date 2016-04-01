@@ -222,14 +222,11 @@ uint32_t eval(int p, int q) {
 		return invalid_expr();
 	}
 	else if(p == q) {
-		printf("token: %s %d %d\n", tokens[p].str, tokens[p].type, INTEGER);
 		if(tokens[p].category != VALUE) {
-			printf("12");
 			return invalid_expr();
 		}
 		switch(tokens[p].type) {
 			case INTEGER:
-				printf("1");
 				return atoi(tokens[p].str);
 			case HEX_INTEGER:
 				return strtol(tokens[p].str, NULL, 16);
@@ -293,7 +290,7 @@ uint32_t expr(char *e, bool *success) {
 	invalid = false;
 
 	res = eval(0, nr_token-1);
-	printf("%dinv:%d",res,invalid);
+
 	if(invalid) {
 		*success = false;
 		return 0;
