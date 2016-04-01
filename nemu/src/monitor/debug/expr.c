@@ -227,6 +227,7 @@ uint32_t eval(int p, int q) {
 			return invalid_expr();
 		switch(tokens[p].type) {
 			case INTEGER:
+				printf("1");
 				return atoi(tokens[p].str);
 			case HEX_INTEGER:
 				return strtol(tokens[p].str, NULL, 16);
