@@ -62,6 +62,18 @@ static int cmd_info(char *args) {
 	return 0;
 }
 
+static int cmd_p(char *args) {
+	bool invalid;
+	uint32_t res = expr(args, &invalid);
+
+	if(invalid) {
+		printf("Invalid expression.");
+	} else {
+		printf("eval result: %X\n", res);
+	}
+	return 0;
+}
+
 static int cmd_q(char *args) {
 	return -1;
 }
@@ -77,6 +89,7 @@ static struct {
 	{ "c", "c: Continue the execution of the program", cmd_c },
 	{ "si", "si [n]: Single step", cmd_si },
 	{ "info", "info [type]: \n\ttype='r': print all registers", cmd_info },
+	{ "p", "p [expr]: \n\tprint the value of the input expression", cmd_p },
 	{ "q", "Exit NEMU", cmd_q },
 
 	/* TODO: Add more commands */
