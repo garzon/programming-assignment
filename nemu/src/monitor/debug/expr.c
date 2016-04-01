@@ -293,6 +293,7 @@ uint32_t expr(char *e, bool *success) {
 	invalid = false;
 
 	res = eval(0, nr_token-1);
+	printf("%dinv:%d",res,invalid);
 	if(invalid) {
 		*success = false;
 		return 0;
