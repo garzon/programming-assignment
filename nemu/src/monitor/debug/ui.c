@@ -78,7 +78,7 @@ static int cmd_x(char *args) {
 	const char *arg = strtok(NULL, " ");
 	bool succ;
 	uint32_t res;
-	int num = 0;
+	int num = 0, i;
 
 	if(arg != NULL)
 		num = atoi(arg);
@@ -91,8 +91,12 @@ static int cmd_x(char *args) {
 	if(!succ) {
 		printf("Invalid expression '%s'\n", arg);
 	} else {
-		for(; num>0; num--) {
-			printf("%08X: %08X \n", res, swaddr_read(res, 4));
+		for(i=0; i<num; i++) {
+			if(i % 4 == 0) {
+				printf("0x%08X: ", res);
+			}
+			printf("0x%08X", swaddr_read(res, 4));
+			if(i % 4 == 3) printf("\n");
 			res += 4;
 		}
 	}
