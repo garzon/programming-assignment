@@ -225,6 +225,7 @@ int op_priority(int op_pos) {
 
 bool check_op_priority(int op1, int op2) {
 	int i, j;
+	if(op1 == -1) return true;
 	i = op_priority(op1);
 	j = op_priority(op2);
 	return i>j;
