@@ -51,7 +51,7 @@ static struct rule {
 	{"!=", OPERATOR, BANG},
 	{"!", UNARY_OPERATOR, BANG},
 	{"&&", OPERATOR, LOGIC_AND},
-	{"||", OPERATOR, LOGIC_OR},
+	{"\\|\\|", OPERATOR, LOGIC_OR},
 	{"\\$[a-zA-Z]{2,3}", VALUE, REGISTER},
 	{"-", OPERATOR, MINUS},
 	{"\\*", OPERATOR, ASTERISK},
