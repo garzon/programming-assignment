@@ -95,7 +95,7 @@ static int cmd_x(char *args) {
 			if(i % 4 == 0) {
 				printf("0x%08X: ", res);
 			}
-			printf("0x%08X", swaddr_read(res, 4));
+			printf("0x%08X ", swaddr_read(res, 4));
 			if(i % 4 == 3) printf("\n");
 			res += 4;
 		}
