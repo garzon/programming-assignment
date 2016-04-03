@@ -14,4 +14,6 @@ WP* new_wp(const char *expr);
 void free_wp(int no);
 void print_wp();
 
+bool check_wp();
+
 #endif

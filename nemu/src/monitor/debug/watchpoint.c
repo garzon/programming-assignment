@@ -56,3 +56,21 @@ void print_wp() {
 		p = p->next;
 	}
 }
+
+bool check_wp() {
+	WP *p = head;
+	bool flag = false, dummy;
+	uint32_t new_val;
+	while(p) {
+		new_val = expr(p->expr, &dummy);
+		if(new_val != p->last_value) {
+			flag = true;
+			printf("Watchpoint #%d: %s\n", p->NO, p->expr);
+			printf("Old value: 0x%08X %d\n", p->last_value, p->last_value);
+			p->last_value = new_val;
+			printf("New value: 0x%08X %d\n\n", p->last_value, p->last_value);
+		}
+		p = p->next;
+	}
+	return flag;	
+}
