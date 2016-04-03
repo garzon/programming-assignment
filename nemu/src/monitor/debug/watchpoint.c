@@ -37,8 +37,12 @@ void free_wp(int no) {
 	WP *p = head, *q = head;
 	while(p && p->NO != no) p = p->next;
 	if(p == NULL) return;
-	while(q->next != p) q = q->next;
-	q->next = p->next;
+	if(p != head) {
+		while(q->next != p) q = q->next;
+		q->next = p->next;
+	} else {
+		head = p->next;
+	}
 	p->next = free_;
 	free_ = p;
 }
