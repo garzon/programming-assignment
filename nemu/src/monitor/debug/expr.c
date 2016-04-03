@@ -18,15 +18,15 @@ enum {
 enum {
 	NOTYPE = 256, EQ = '=',
 
-	REGISTER,
+	REGISTER = 'r',
 	PLUS = '+',
 	MINUS = '-',
 	ASTERISK = '*',
 	SLASH = '/',
 	LEFT_PAR = '(',
 	RIGHT_PAR = ')',
-	INTEGER,
-	HEX_INTEGER
+	INTEGER = 'i',
+	HEX_INTEGER = 'X',
 
 	/* TODO: Add more token types */
 
