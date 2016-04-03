@@ -27,6 +27,9 @@ enum {
 	RIGHT_PAR = ')',
 	INTEGER = 'i',
 	HEX_INTEGER = 'X',
+	BANG = '!',
+	LOGIC_OR = '|',
+	LOGIC_AND = '&',
 
 	/* TODO: Add more token types */
 
@@ -45,6 +48,10 @@ static struct rule {
 	{" +", OTHERS, NOTYPE},
 	{"\\+", OPERATOR, PLUS},
 	{"==", OPERATOR, EQ},
+	{"!=", OPERATOR, BANG},
+	{"!", UNARY_OPERATOR, BANG},
+	{"&&", OPERATOR, LOGIC_AND},
+	{"||", OPERATOR, LOGIC_OR},
 	{"\\$[a-zA-Z]{2,3}", VALUE, REGISTER},
 	{"-", OPERATOR, MINUS},
 	{"\\*", OPERATOR, ASTERISK},
@@ -82,7 +89,7 @@ typedef struct token {
 	char str[32];
 } Token;
 
-Token tokens[32];
+Token tokens[64];
 int nr_token;
 
 static bool make_token(const char *e) {
@@ -104,20 +111,20 @@ static bool make_token(const char *e) {
 
 				if(rules[i].token_type == NOTYPE) break;
 
-				assert(nr_token < 32);
+				assert(nr_token < (sizeof(tokens) / sizeof(tokens[0])));
 
 				tokens[nr_token].category = rules[i].category;
 				tokens[nr_token].type = rules[i].token_type;
 
-				switch(rules[i].category) {
-					case VALUE:
-						assert(substr_len < 32);
+				//switch(rules[i].category) {
+				//	case VALUE:
+						assert(substr_len < sizeof(tokens[nr_token].str));
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
 						tokens[nr_token].str[substr_len] = '\0';
-						break;
-					default: //panic("please implement me");
-						break;
-				}
+				//		break;
+				//	default: //panic("please implement me");
+				//		break;
+				//}
 
 				if(rules[i].token_type == '*' ||
 					rules[i].token_type == '-')
@@ -200,28 +207,24 @@ uint32_t register_eval(const char *reg_name) {
 	return invalid_expr();
 }
 
-bool check_op_priority(int op1, int op2) {
-	const int rank1[] = {'*', '/', 0};
-	const int rank2[] = {'+', '-', 0};
-	const int *opList[] = {
-		&rank1[0],
-		&rank2[0],
-		(int *)NULL
-	};
-	bool flag1 = false, flag2 = false;
-	int i, j;
-	if(op1 == -1) return true;
-	for(i=0; opList[i]; i++) {
-		for(j=0; opList[i][j]; j++) {
-			if(tokens[op1].type == opList[i][j])
-				flag1 = true;
-			if(tokens[op2].type == opList[i][j])
-				flag2 = true;
-		}
-		if(flag1 && !flag2) return true;
-		if(flag2) return false;
+int op_priority(int op_pos) {
+	switch(tokens[op_pos].type) {
+		case '*': case '/': return 10;
+		case '&': return 7;
+		case '|': return 6;
+		case '+': case '-': return 5;
+		case '!': case '=': return 0;
+		default:
+			return invalid_expr();
 	}
 	return invalid_expr();
+}
+
+bool check_op_priority(int op1, int op2) {
+	int i, j;
+	i = op_priority(op1);
+	j = op_priority(op2);
+	return i>j;
 }
 
 bool unary_operator_only(int p, int q) {
@@ -271,6 +274,8 @@ uint32_t eval(int p, int q) {
 				return swaddr_read(eval(p+1, q), 4);
 			case '-':
 				return -eval(p+1, q);
+			case '!':
+				return !eval(p+1, q);
 			default:
 				return invalid_expr();	
 		}
@@ -303,6 +308,10 @@ uint32_t eval(int p, int q) {
 			case '-': return val1 - val2;
 			case '*': return val1 * val2;
 			case '/': return val1 / val2;
+			case '|': return val1 || val2;
+			case '&': return val1 && val2;
+			case '=': return val1 == val2;
+			case '!': return val1 != val2;
 			default: return invalid_expr();
 		}
 	}
