@@ -52,7 +52,7 @@ void free_wp(int no) {
 void print_wp() {
 	WP *p = head;
 	while(p) {
-		printf("#%d: %s\n", p->NO, p->expr);
+		printf("#%d: %s, value: %08X\n", p->NO, p->expr, p->last_value);
 		p = p->next;
 	}
 }
