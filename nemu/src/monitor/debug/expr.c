@@ -167,16 +167,37 @@ bool check_parentheses(int p, int q) {
 }
 
 uint32_t register_eval(const char *reg_name) {
-	return invalid_expr();
-	if(reg_name[1] == 'e' || reg_name[1] == 'E') {
-		if(reg_name[4] != '\0')
-			return invalid_expr();
-		if(reg_name[2])
-		if(reg_name[3] != 'x' && reg_name[3] != 'X')
-			return invalid_expr();
-
+	const char *names_32[] = {
+		"$EAX", "$ECX", "$EDX", "$EBX",
+		"$ESP", "$EBP", "$ESI", "$EDI"
+	};
+	const char *names_16[] = {
+		"$AX", "$CX", "$DX", "$BX",
+		"$SP", "$BP", "$SI", "$DI"
+	};
+	const char *names_8l[] = {
+		"$AH", "$CH", "$DH", "$BH"
+	};
+	const char *names_8h[] = {
+		"$AH", "$CH", "$DH", "$BH"
+	};
+	int i;
+	if(!strcasecmp(reg_name, "$EIP")) return cpu.eip;
+	for(i=0; i<8; i++) {
+		if(!strcasecmp(reg_name, names_32[i]))
+			return cpu.gpr[i]._32;
 	}
-	return 0;
+	for(i=0; i<8; i++) {
+		if(!strcasecmp(reg_name, names_16[i]))
+			return cpu.gpr[i]._16;
+	}
+	for(i=0; i<4; i++) {
+		if(!strcasecmp(reg_name, names_8h[i]))
+			return cpu.gpr[i]._8[1];
+		if(!strcasecmp(reg_name, names_8l[i]))
+			return cpu.gpr[i]._8[0];
+	}
+	return invalid_expr();
 }
 
 bool check_op_priority(int op1, int op2) {
