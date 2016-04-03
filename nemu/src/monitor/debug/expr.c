@@ -120,9 +120,9 @@ static bool make_token(char *e) {
 				}
 
 				if(rules[i].token_type == '*') {
-					if(i == 0 || 
-					rules[i-1].category == OPERATOR || 
-					rules[i-1].category == UNARY_OPERATOR) {
+					if(nr_token == 0 || 
+					tokens[nr_token-1].category == OPERATOR || 
+					tokens[nr_token-1].category == UNARY_OPERATOR) {
 						tokens[nr_token].category = UNARY_OPERATOR;
 					}
 				}
@@ -263,6 +263,8 @@ uint32_t eval(int p, int q) {
 		}
 
 		op = old_op;
+		if(op == -1) return invalid_expr();
+
 
 		val1 = eval(p, op - 1);
 		if(invalid) return invalid_expr();
