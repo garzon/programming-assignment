@@ -118,7 +118,7 @@ static bool make_token(char *e) {
 					default: //panic("please implement me");
 						break;
 				}
-
+				/*
 				if(rules[i].token_type == '*') {
 					if(nr_token == 0 || 
 					tokens[nr_token-1].category == OPERATOR || 
@@ -126,7 +126,7 @@ static bool make_token(char *e) {
 						tokens[nr_token].category = UNARY_OPERATOR;
 					}
 				}
-
+*/
 				nr_token++;
 
 				break;
