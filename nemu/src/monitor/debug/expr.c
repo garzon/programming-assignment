@@ -118,15 +118,19 @@ static bool make_token(const char *e) {
 					default: //panic("please implement me");
 						break;
 				}
-				/*
-				if(rules[i].token_type == '*') {
+
+				if(rules[i].token_type == '*' ||
+					rules[i].token_type == '-')
+				{
 					if(nr_token == 0 || 
-					tokens[nr_token-1].category == OPERATOR || 
-					tokens[nr_token-1].category == UNARY_OPERATOR) {
+						tokens[nr_token-1].category == OPERATOR || 
+						tokens[nr_token-1].category == UNARY_OPERATOR) 
+					{
+						
 						tokens[nr_token].category = UNARY_OPERATOR;
 					}
 				}
-*/
+
 				nr_token++;
 
 				break;
