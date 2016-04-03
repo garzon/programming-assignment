@@ -9,7 +9,7 @@ static WP *head, *free_;
 void init_wp_list() {
 	int i;
 	for(i = 0; i < NR_WP; i ++) {
-		wp_list[i].NO = i;
+		wp_list[i].NO = i+1;
 		wp_list[i].next = &wp_list[i + 1];
 	}
 	wp_list[NR_WP - 1].next = NULL;
@@ -28,13 +28,26 @@ WP* new_wp(const char *expr) {
 		while(p->next) p = p->next;
 		p->next = res;
 	}
+	assert(strlen(expr) < sizeof(wp_list[0].expr));
+	strcpy(res->expr, expr);
 	return res;
 }
 
 void free_wp(int no) {
-	WP *p = head;
+	WP *p = head, *q = head;
 	while(p && p->NO != no) p = p->next;
 	if(p == NULL) return;
+	while(q->next != p) q = q->next;
+	q->next = p->next;
+	p->next = free_;
+	free_ = p;
 }
 
 
+void print_wp() {
+	WP *p = head;
+	while(p) {
+		printf("#%d: %s\n", p->NO, p->expr);
+		p = p->next;
+	}
+}

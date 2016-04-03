@@ -44,7 +44,7 @@ static int cmd_si(char *args) {
 static int cmd_info(char *args) {
 	char *arg = strtok(NULL, " ");
 	bool flag = false;
-	if(!strcmp(arg, "r") || strcmp(arg, "R")) {
+	if(!strcasecmp(arg, "r")) {
 		printf("EAX: 0x%08X\t", cpu.eax);
 		printf("EBX: 0x%08X\t", cpu.ebx);
 		printf("ECX: 0x%08X\n", cpu.ecx);
@@ -54,6 +54,10 @@ static int cmd_info(char *args) {
 		printf("ESI: 0x%08X\t", cpu.esi);
 		printf("EDI: 0x%08X\t", cpu.edi);
 		printf("EIP: 0x%08X\n", cpu.eip);
+		flag = true;
+	}
+	if(!strcasecmp(arg, "w")) {
+		print_wp();
 		flag = true;
 	}
 	if(!flag) {
@@ -109,6 +113,33 @@ static int cmd_q(char *args) {
 	return -1;
 }
 
+static int cmd_w(char *args) {
+	bool succ;
+	uint32_t res = expr(args, &succ);
+	WP *wp;
+
+	if(!succ) {
+		printf("Invalid expression.\n");
+	} else {
+		wp = new_wp(args);
+		wp->last_value = res;
+		printf("Watchpoint %d: %s\n", wp->NO, wp->expr);
+	}
+	return 0;
+}
+
+static int cmd_d(char *args) {
+	uint32_t res = atoi(args);
+
+	if(!res) {
+		printf("Invalid watchpoint id.\n");
+	} else {		
+		printf("Delete watchpoint %d", res);
+		free_wp(res);
+	}
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -119,9 +150,11 @@ static struct {
 	{ "help", "help [cmd]: Display informations about all supported commands", cmd_help },
 	{ "c", "c: Continue the execution of the program", cmd_c },
 	{ "si", "si [n]: Single step", cmd_si },
-	{ "info", "info [type]: \n\ttype='r': print all registers", cmd_info },
+	{ "info", "info [type]: \n\ttype='r': print all registers, type='w': print all watchpoints", cmd_info },
 	{ "p", "p [expr]: \n\tprint the value of the input expression", cmd_p },
 	{ "x", "x [N] [expr]: \n\tprint the DWORDs from the memory address specified in [expr] N times", cmd_x },
+	{ "d", "d [N]: \n\tdelete the #N watchpoint", cmd_d },
+	{ "w", "w [expr]: \n\twatch the expr and interrupt when it changes", cmd_w },
 	{ "q", "Exit NEMU", cmd_q },
 
 	/* TODO: Add more commands */
