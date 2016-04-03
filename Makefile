@@ -17,7 +17,7 @@ include config/Makefile.build
 all: nemu
 
 count:
-	find . -name "*.[ch]*" | xargs wc -l | grep "total" | awk '{ print $1}'
+	find . -name "*.[ch]" | xargs wc -l | grep "total" | awk '{ print $1}'
 
 ##### rules for building the project #####
 
