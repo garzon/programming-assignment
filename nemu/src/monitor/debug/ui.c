@@ -122,9 +122,15 @@ static int cmd_w(char *args) {
 		printf("Invalid expression.\n");
 	} else {
 		wp = new_wp(args);
-		wp->last_value = res;
-		printf("Watchpoint %d: %s\n", wp->NO, wp->expr);
+		if(wp) {
+			wp->last_value = res;
+			printf("Watchpoint %d: %s\n", wp->NO, wp->expr);
+		} else {
+			printf("Error: too many watchpoints!\n");
+		}
 	}
+
+	printf("\n");
 	return 0;
 }
 

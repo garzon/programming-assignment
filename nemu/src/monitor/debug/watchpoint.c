@@ -21,6 +21,7 @@ void init_wp_list() {
 WP* new_wp(const char *expr) {
 	WP *res = free_, *p;
 	if(free_ == NULL) return NULL;
+	free_ = free_->next;
 	res->next = NULL;
 	if(head == NULL) head = res;
 	else {
