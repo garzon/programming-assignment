@@ -264,8 +264,8 @@ uint32_t eval(int p, int q) {
 		op = old_op;
 
 		val1 = eval(p, op - 1);
+		if(invalid) return invalid_expr();
 		val2 = eval(op + 1, q);
-
 		if(invalid) return invalid_expr();
 
 		switch(tokens[op].type) {
