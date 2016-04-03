@@ -69,7 +69,7 @@ static int cmd_p(char *args) {
 	if(!succ) {
 		printf("Invalid expression.\n");
 	} else {
-		printf("eval result: %X\n", res);
+		printf("eval result: 0x%X %d\n", res, res);
 	}
 	return 0;
 }
