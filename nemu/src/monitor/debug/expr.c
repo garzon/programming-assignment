@@ -85,7 +85,7 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-static bool make_token(char *e) {
+static bool make_token(const char *e) {
 	int position = 0;
 	int i;
 	regmatch_t pmatch;
@@ -96,7 +96,7 @@ static bool make_token(char *e) {
 		/* Try all rules one by one. */
 		for(i = 0; i < NR_REGEX; i ++) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-				char *substr_start = e + position;
+				const char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
 				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
@@ -243,7 +243,7 @@ uint32_t eval(int p, int q) {
 		assert(tokens[p].category == UNARY_OPERATOR);
 		switch(tokens[p].type) {
 			case '*':
-				return swaddr_read(eval(p+1, q), 4);
+				return swaddr_read(eval(p+1, q), 1);
 			default:
 				return invalid_expr();	
 		}
@@ -281,7 +281,7 @@ uint32_t eval(int p, int q) {
 	}
 }
 
-uint32_t expr(char *e, bool *success) {
+uint32_t expr(const char *e, bool *success) {
 	uint32_t res;
 
 	if(!make_token(e)) {

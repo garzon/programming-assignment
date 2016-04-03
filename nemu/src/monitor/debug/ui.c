@@ -74,6 +74,32 @@ static int cmd_p(char *args) {
 	return 0;
 }
 
+static int cmd_x(char *args) {
+	const char *arg = strtok(NULL, " ");
+	bool succ;
+	uint32_t res;
+	int num = 0;
+
+	if(arg != NULL)
+		num = atoi(arg);
+	if(num == 0) {
+		printf("Invalid argument '%s'\n", arg);
+	}
+
+	arg = strtok(NULL, " ");
+	res = expr(arg, &succ);
+	if(!succ) {
+		printf("Invalid expression '%s'\n", arg);
+	} else {
+		for(; num>0; num--) {
+			printf("%08X: %08X \n", res, swaddr_read(res, 4));
+			res += 4;
+		}
+	}
+
+	return 0;
+}
+
 static int cmd_q(char *args) {
 	return -1;
 }
@@ -90,6 +116,7 @@ static struct {
 	{ "si", "si [n]: Single step", cmd_si },
 	{ "info", "info [type]: \n\ttype='r': print all registers", cmd_info },
 	{ "p", "p [expr]: \n\tprint the value of the input expression", cmd_p },
+	{ "x", "x [N] [expr]: \n\tprint the DWORDs from the memory address specified in [expr] N times", cmd_x },
 	{ "q", "Exit NEMU", cmd_q },
 
 	/* TODO: Add more commands */
