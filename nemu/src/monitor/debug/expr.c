@@ -205,7 +205,7 @@ bool check_op_priority(int op1, int op2) {
 
 bool unary_operator_only(int p, int q) {
 	int i, counter = 0; bool flag = false;
-	for(i=p; i<q; i++) {
+	for(i=p; i<=q; i++) {
 		if(tokens[i].type == '(') {
 			counter++;
 			flag = true;
@@ -247,7 +247,9 @@ uint32_t eval(int p, int q) {
 		assert(tokens[p].category == UNARY_OPERATOR);
 		switch(tokens[p].type) {
 			case '*':
-				return swaddr_read(eval(p+1, q), 1);
+				return swaddr_read(eval(p+1, q), 4);
+			case '-':
+				return -eval(p+1, q);
 			default:
 				return invalid_expr();	
 		}
