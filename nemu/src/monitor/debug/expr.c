@@ -176,7 +176,7 @@ uint32_t register_eval(const char *reg_name) {
 		"$SP", "$BP", "$SI", "$DI"
 	};
 	const char *names_8l[] = {
-		"$AH", "$CH", "$DH", "$BH"
+		"$AL", "$CL", "$DL", "$BL"
 	};
 	const char *names_8h[] = {
 		"$AH", "$CH", "$DH", "$BH"
