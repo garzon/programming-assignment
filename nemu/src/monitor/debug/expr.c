@@ -121,8 +121,7 @@ static bool make_token(char *e) {
 				if(rules[i].token_type == '*') {
 					if(i == 0 || 
 					rules[i-1].category == OPERATOR || 
-					rules[i-1].category == UNARY_OPERATOR ||
-					rules[i-1].token_type == NOTYPE ) {
+					rules[i-1].category == UNARY_OPERATOR) {
 						tokens[nr_token].category = UNARY_OPERATOR;
 					}
 				}
