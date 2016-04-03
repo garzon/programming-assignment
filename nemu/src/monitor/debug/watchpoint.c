@@ -18,6 +18,23 @@ void init_wp_list() {
 	free_ = wp_list;
 }
 
-/* TODO: Implement the functionality of watchpoint */
+WP* new_wp(const char *expr) {
+	WP *res = free_, *p;
+	if(free_ == NULL) return NULL;
+	res->next = NULL;
+	if(head == NULL) head = res;
+	else {
+		p = head;
+		while(p->next) p = p->next;
+		p->next = res;
+	}
+	return res;
+}
+
+void free_wp(int no) {
+	WP *p = head;
+	while(p && p->NO != no) p = p->next;
+	if(p == NULL) return;
+}
 
 
