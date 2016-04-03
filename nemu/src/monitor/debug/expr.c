@@ -155,7 +155,9 @@ static bool make_token(const char *e) {
 
 bool invalid = false;
 
-bool invalid_expr() {
+bool invalid_expr(const char *err_msg) {
+	if(strlen(err_msg))
+		printf("%s (Error)\n", err_msg);
 	invalid = true;
 	return false;
 }
@@ -168,7 +170,7 @@ bool check_parentheses(int p, int q) {
 	for(i=p; i<=q; i++) {
 		if(tokens[i].type == '(') counter++;
 		if(tokens[i].type == ')') counter--;
-		if(counter < 0) return invalid_expr();
+		if(counter < 0) return invalid_expr("Parentheses do not match.");
 	}
 	return counter == 0;
 }
@@ -204,7 +206,7 @@ uint32_t register_eval(const char *reg_name) {
 		if(!strcasecmp(reg_name, names_8l[i]))
 			return cpu.gpr[i]._8[0];
 	}
-	return invalid_expr();
+	return invalid_expr("Invalid register name");
 }
 
 int op_priority(int op_pos) {
@@ -215,9 +217,10 @@ int op_priority(int op_pos) {
 		case '+': case '-': return 5;
 		case '!': case '=': return 0;
 		default:
-			return invalid_expr();
+			break;
 	}
-	return invalid_expr();
+	printf("%s: ", tokens[op_pos].str);
+	return invalid_expr("Unknown operator");
 }
 
 bool check_op_priority(int op1, int op2) {
@@ -247,11 +250,12 @@ uint32_t eval(int p, int q) {
 	int op, counter = 0, old_op = -1;
 	uint32_t val1, val2;
 	if(p > q) {
-		return invalid_expr();
+		return invalid_expr("Unknown - overflow");
 	}
 	else if(p == q) {
 		if(tokens[p].category != VALUE) {
-			return invalid_expr();
+			printf("%s: ", tokens[p].str);
+			return invalid_expr("Not a valid value");
 		}
 		switch(tokens[p].type) {
 			case INTEGER:
@@ -261,7 +265,8 @@ uint32_t eval(int p, int q) {
 			case REGISTER:
 				return register_eval(tokens[p].str);
 			default:
-				return invalid_expr();
+				printf("%s: ", tokens[p].str);
+				return invalid_expr("Unknown value type");
 		}
 	}
 	else if(check_parentheses(p, q) == true) {
@@ -277,7 +282,8 @@ uint32_t eval(int p, int q) {
 			case '!':
 				return !eval(p+1, q);
 			default:
-				return invalid_expr();	
+				printf("%s: ", tokens[p].str);
+				return invalid_expr("Unknown unary operator");	
 		}
 	}
 	else {
@@ -295,13 +301,13 @@ uint32_t eval(int p, int q) {
 		}
 
 		op = old_op;
-		if(op == -1) return invalid_expr();
+		if(op == -1) return invalid_expr("No valid operator found");
 
 
 		val1 = eval(p, op - 1);
-		if(invalid) return invalid_expr();
+		if(invalid) return invalid_expr("");
 		val2 = eval(op + 1, q);
-		if(invalid) return invalid_expr();
+		if(invalid) return invalid_expr("");
 
 		switch(tokens[op].type) {
 			case '+': return val1 + val2;
@@ -312,7 +318,7 @@ uint32_t eval(int p, int q) {
 			case '&': return val1 && val2;
 			case '=': return val1 == val2;
 			case '!': return val1 != val2;
-			default: return invalid_expr();
+			default: return invalid_expr("Unknown operator");
 		}
 	}
 }
