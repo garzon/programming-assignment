@@ -31,6 +31,7 @@ typedef struct {
 		};
 	};
 
+	bool eflags_cf, eflags_pf, eflags_zf, eflags_sf, eflags_if, eflags_df, eflags_of;
 	swaddr_t eip;
 
 } CPU_state;
