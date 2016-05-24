@@ -3,7 +3,7 @@
 #define instr jcc
 
 static void do_execute() {
-	int opcode = ops_decoded.opcode;
+	uint8_t opcode = ops_decoded.opcode;
 	bool cond = false;
 	if(DATA_BYTE != 1)
 		opcode -= 0x10;
