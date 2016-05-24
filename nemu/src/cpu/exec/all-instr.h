@@ -29,5 +29,6 @@
 #include "control/call.h"
 #include "control/cmp.h"
 #include "control/test.h"
+#include "control/jcc.h"
 
 #include "special/special.h"
