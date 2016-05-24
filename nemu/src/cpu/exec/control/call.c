@@ -5,7 +5,7 @@ make_helper(call_rel32) {
 	cpu.esp -= 4;
 	swaddr_write(cpu.esp, 4, eip);
 	cpu.eip = rel32 + 4;
-	print_asm("CALL 0x%x", cpu.eip);
+	print_asm("CALL 0x%x", cpu.eip+1);
 
 	return 1;
 }
