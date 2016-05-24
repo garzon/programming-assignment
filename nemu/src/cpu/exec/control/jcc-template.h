@@ -13,6 +13,7 @@ static void do_execute() {
 		case 0x74: SUBOP(JE, cpu.eflags_zf);
 		default:
 			panic("not implemented");
+#undef SUBOP
 	}
 
 	if(cond) {
