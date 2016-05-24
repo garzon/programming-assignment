@@ -27,5 +27,6 @@
 #include "misc/misc.h"
 
 #include "control/call.h"
+#include "control/cmp.h"
 
 #include "special/special.h"

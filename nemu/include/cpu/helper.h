@@ -19,6 +19,14 @@ static inline int idex(swaddr_t eip, int (*decode)(swaddr_t), void (*execute) (v
 	return len + 1;	// "1" for opcode
 }
 
+static inline void set_pf(uint32_t result) {
+	uint32_t res = result & 0xff;
+	res ^= (res >> 4);
+	res ^= (res >> 2);
+	res ^= (res >> 1);
+	cpu.eflags_pf = !(res & 1);
+}
+
 /* shared by all helper function */
 extern Operands ops_decoded;
 
