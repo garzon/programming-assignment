@@ -28,5 +28,6 @@
 
 #include "control/call.h"
 #include "control/cmp.h"
+#include "control/test.h"
 
 #include "special/special.h"
