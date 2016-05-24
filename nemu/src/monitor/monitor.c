@@ -86,6 +86,8 @@ void restart() {
 
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
+	cpu.ebp = 0;
+	cpu.esp = 0x80000000;
 	cpu.eflags_cf = false; 
 	cpu.eflags_pf = false;
 	cpu.eflags_zf = false;
