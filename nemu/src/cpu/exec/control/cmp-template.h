@@ -8,9 +8,9 @@ static void do_execute() {
 	DATA_TYPE_S real_val;
 	DATA_TYPE res;
 	switch(op_src->size) {
-		case 1: real_val = (int8_t)(-b); break;
-		case 2: real_val = (int16_t)(-b); break;
-		case 4: real_val = (int32_t)(-b); break;
+		case 1: real_val = (int8_t)(b); break;
+		case 2: real_val = (int16_t)(b); break;
+		case 4: real_val = (int32_t)(b); break;
 		default: panic("cmp_src_size_err");
 	}
 	res = a + (-real_val);
