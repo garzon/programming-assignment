@@ -5,7 +5,7 @@
 static void do_execute() {
 	DATA_TYPE_S res = op_src->val;
 	printf(str(DATA_BYTE));
-	printf("size: %d ", (int)op_dest->size);
+	printf("size: %d ", (int)op_src->size);
 	write_operand_l(op_dest, res);
 	if(op_dest->size == 1) {
 		panic("movsx_size_err");
