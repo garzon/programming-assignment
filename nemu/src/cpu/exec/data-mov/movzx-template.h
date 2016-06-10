@@ -3,7 +3,10 @@
 #define instr movzx
 
 static void do_execute() {
-	OPERAND_W(op_dest, op_src->val);
+	if(op_src->size == 1)
+		write_operand_l(op_dest, (uint8_t)op_src->val);
+	if(op_src->size == 2)
+		write_operand_l(op_dest, (uint16_t)op_src->val);
 	if(op_src->size == 4) {
 		panic("movsx_size_err");
 	}
