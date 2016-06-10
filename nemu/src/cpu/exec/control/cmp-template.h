@@ -15,7 +15,7 @@ static void do_execute() {
 	set_pf(res);
 	printf("\n");
 	printf(str(DATA_TYPE));
-	printf("%d %d", b, (int)op_src->size);
+	printf("%08x %08x %d", op_src->val, op_dest->val, (int)op_src->size);
 	print_asm_template2();
 }
 
