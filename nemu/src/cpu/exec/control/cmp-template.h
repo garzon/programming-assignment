@@ -13,7 +13,7 @@ static void do_execute() {
 		case 4: real_val = (int32_t)(-b); break;
 		default: panic("cmp_src_size_err");
 	}
-	res = a + (-real_val);
+	res = a + real_val;
 	cpu.eflags_cf = a < b;
 	cpu.eflags_of = (MSB(a) ^ MSB(real_val)) && (MSB(a) ^ MSB(res));
 	cpu.eflags_sf = MSB(res);
