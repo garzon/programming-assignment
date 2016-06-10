@@ -4,6 +4,11 @@ int A[10];
 int b;
 char C[10];
 int main() {
+	unsigned char cc = 255;
+	int dd, ee = -1;
+	dd = (int)cc;
+	nemu_assert(dd == ee);
+
 	A[0] = 0;
 	A[1] = 1;
 	A[2] = 2;
