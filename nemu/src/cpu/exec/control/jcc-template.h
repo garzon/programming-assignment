@@ -11,6 +11,7 @@ static void do_execute() {
 	switch(opcode) {
 #define SUBOP(name, condition) opName = str(name); cond = (condition); break
 		case 0x74: SUBOP(JE, cpu.eflags_zf);
+		case 0x7E: SUBOP(JLE, cpu.eflags_zf || cpu.eflags_sf != cpu.eflags_of);
 		default:
 			panic("not implemented");
 #undef SUBOP
