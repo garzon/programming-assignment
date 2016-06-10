@@ -6,10 +6,10 @@ static void do_execute() {
 	DATA_TYPE res;
 #if DATA_BYTE == 2
 	res = swaddr_read(cpu.esp, 2);
-	cpu.esp -= 2;
+	cpu.esp += 2;
 #else
 	res = swaddr_read(cpu.esp, 4);
-	cpu.esp -= 4;
+	cpu.esp += 4;
 #endif
 	OPERAND_W(op_dest, res);
 	print_asm_template1();
