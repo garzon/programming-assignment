@@ -4,10 +4,7 @@
 
 static void do_execute() {
 	DATA_TYPE_S res = op_src->val;
-	if(op_dest->size == 4)
-		write_operand_l(op_dest, (int32_t)res);
-	if(op_dest->size == 2)
-		write_operand_w(op_dest, (int16_t)res);
+	write_operand_l(op_dest, res);
 	if(op_dest->size == 1) {
 		panic("movsx_size_err");
 	}
