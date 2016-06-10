@@ -5,12 +5,12 @@
 static void do_execute() {
 	DATA_TYPE a = op_dest->val;
 	DATA_TYPE_S b = op_src->val;
+	DATA_TYPE res = a + (DATA_TYPE_S)(-b);
 	cpu.eflags_cf = a < (DATA_TYPE)(b);
-	cpu.eflags_of = (b > 0) ? (a-(DATA_TYPE)(b)) > a : (a + (DATA_TYPE)(-b) < a);
-	a += (DATA_TYPE_S)(-b);
+	cpu.eflags_of = (MSB(a) ^ MSB(((DATA_TYPE)(b)))) && (MSB(a) ^ MSB(res));
 	cpu.eflags_sf = MSB(a);
 	cpu.eflags_zf = a == 0;
-	set_pf(a);
+	set_pf(res);
 	print_asm_template2();
 }
 
