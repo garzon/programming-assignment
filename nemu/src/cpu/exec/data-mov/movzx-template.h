@@ -4,12 +4,14 @@
 
 static void do_execute() {
 	DATA_TYPE res = op_src->val;
-	printf("src, %08x", op_src->val);
-	printf("src, %08x", op_dest->val);
 	if(op_dest->size == 4)
 		write_operand_l(op_dest, (int32_t)res);
 	if(op_dest->size == 2)
 		write_operand_w(op_dest, (int16_t)res);
+	if(op_dest->size == 1) {
+		print_asm_template2();
+		panic("movzx_size_err");
+	}
 	print_asm_template2();
 }
 
