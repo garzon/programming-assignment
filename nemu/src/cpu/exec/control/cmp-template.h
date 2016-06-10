@@ -13,7 +13,7 @@ static void do_execute() {
 	set_pf(res);
 	printf("\n");
 	printf(str(DATA_TYPE));
-	printf("%d %d", b, MSB(b));
+	printf("%d %d", b, (int)op_src->size);
 	print_asm_template2();
 }
 
