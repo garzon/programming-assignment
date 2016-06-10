@@ -11,7 +11,7 @@ static void do_execute() {
 		case 1: real_val = (int8_t)(b); break;
 		case 2: real_val = (int16_t)(b); break;
 		case 4: real_val = (int32_t)(b); break;
-		default: panic("cmp_src_size_err: %x", cpu.eip);
+		default: panic("cmp_src_size_err(%d): %x", (int)op_src->size, cpu.eip);
 	}
 	res = a + (-real_val);
 	cpu.eflags_cf = a < b;
