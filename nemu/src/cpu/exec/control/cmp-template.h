@@ -7,6 +7,7 @@ static void do_execute() {
 	DATA_TYPE b = op_src->val;
 	DATA_TYPE_S real_val;
 	DATA_TYPE res;
+	if(op_src->size == 0) op_src->size = DATA_BYTE;
 	switch(op_src->size) {
 		case 1: real_val = (int8_t)(b); break;
 		case 2: real_val = (int16_t)(b); break;
