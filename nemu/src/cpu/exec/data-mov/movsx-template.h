@@ -4,9 +4,9 @@
 
 static void do_execute() {
 	if(op_dest->size == 4)
-		OPERAND_W(op_dest, (int32_t)op_src->val);
+		write_operand_l(op_dest, (int32_t)op_src->val);
 	if(op_dest->size == 2)
-		OPERAND_W(op_dest, (int16_t)op_src->val);
+		write_operand_w(op_dest, (int16_t)op_src->val);
 	print_asm_template2();
 }
 
