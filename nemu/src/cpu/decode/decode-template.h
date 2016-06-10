@@ -4,6 +4,8 @@
 
 #define decode_r_internal concat3(decode_r_, SUFFIX, _internal)
 #define decode_rm_internal concat3(decode_rm_, SUFFIX, _internal)
+#define decode_rmb_internal concat3(decode_rmb_, SUFFIX, _internal)
+#define decode_rmw_internal concat3(decode_rmw_, SUFFIX, _internal)
 #define decode_i concat(decode_i_, SUFFIX)
 #define decode_a concat(decode_a_, SUFFIX)
 #define decode_r2rm concat(decode_r2rm_, SUFFIX)
@@ -77,6 +79,40 @@ static int concat3(decode_rm_, SUFFIX, _internal) (swaddr_t eip, Operand *rm, Op
 #endif
 	return len;
 }
+
+#if DATA_BYTE != 1
+	static int concat3(decode_rmb_, SUFFIX, _internal) (swaddr_t eip, Operand *rm, Operand *reg) {
+		rm->size = 1;
+		int len = read_ModR_M(eip, rm, reg);
+		reg->val = REG(reg->reg);
+
+		#ifdef DEBUG
+			snprintf(reg->str, OP_STR_SIZE, "%%%s", REG_NAME(reg->reg));
+		#endif
+
+		return len;
+	}
+	make_helper(concat(decode_rmb2r_, SUFFIX)) {
+		return decode_rmb_internal(eip, op_src, op_dest);
+	}
+
+	#if DATA_BYTE != 2
+		static int concat3(decode_rmw_, SUFFIX, _internal) (swaddr_t eip, Operand *rm, Operand *reg) {
+			rm->size = 2;
+			int len = read_ModR_M(eip, rm, reg);
+			reg->val = REG(reg->reg);
+
+		#ifdef DEBUG
+			snprintf(reg->str, OP_STR_SIZE, "%%%s", REG_NAME(reg->reg));
+		#endif
+			return len;
+		}
+		make_helper(concat(decode_rmw2r_, SUFFIX)) {
+			return decode_rmw_internal(eip, op_src, op_dest);
+		}
+	#endif
+
+#endif
 
 /* Eb <- Gb
  * Ev <- Gv

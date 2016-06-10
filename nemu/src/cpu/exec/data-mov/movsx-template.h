@@ -9,12 +9,16 @@ static void do_execute() {
 	if(op_dest->size == 2)
 		write_operand_w(op_dest, (int16_t)res);
 	if(op_dest->size == 1) {
-		printf("dest_size: %d", (int)op_dest->size);
 		panic("movsx_size_err");
 	}
 	print_asm_template2();
 }
 
-make_instr_helper(rm2r)
+#if DATA_BYTE != 1
+make_instr_helper(rmb2r)
+#if DATA_BYTE != 2
+make_instr_helper(rmw2r)
+#endif
+#endif
 
 #include "cpu/exec/template-end.h"
