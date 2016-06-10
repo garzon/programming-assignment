@@ -11,6 +11,7 @@ static void do_execute() {
 	cpu.eflags_sf = MSB(res);
 	cpu.eflags_zf = res == 0;
 	set_pf(res);
+	printf(str(DATA_TYPE));
 	print_asm_template2();
 }
 
