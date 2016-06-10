@@ -4,7 +4,7 @@ int A[10];
 int b;
 char C[10];
 int main() {
-	unsigned char cc = 255;
+	char cc = -1;
 	int dd, ee = -1;
 	dd = (int)cc;
 	nemu_assert(dd == ee);
