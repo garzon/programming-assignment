@@ -11,6 +11,9 @@ static void do_execute() {
 	if(op_dest->size == 1) {
 		printf("dest_val: %08x\n", op_dest->val);
 		printf("dest_size: %d", (int)op_dest->size);
+		write_operand_w(op_dest, 0xfff);
+		printf("dest_val: %08x\n", op_dest->val);
+		printf("dest_size: %d", (int)op_dest->size);
 		panic("movsx_size_err");
 	}
 	print_asm_template2();
