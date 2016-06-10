@@ -21,7 +21,7 @@ static void do_execute() {
 	set_pf(res);
 	printf("\n");
 	printf(str(DATA_TYPE));
-	printf("%08x %d %d", op_dest->val, real_val, (int)op_src->size);
+	printf("%08x-%d=%08x %d", op_dest->val, real_val, res, (int)op_src->size);
 	print_asm_template2();
 }
 
