@@ -3,11 +3,11 @@
 #define instr movsx
 
 static void do_execute() {
-	DATA_TYPE_S res = op_src->val;
-	printf(str(DATA_BYTE));
-	printf("size: %d ", (int)op_src->size);
-	write_operand_l(op_dest, res);
-	if(op_dest->size == 1) {
+	if(op_src->size == 1)
+		write_operand_l(op_dest, (int8_t)op_src->val);
+	if(op_src->size == 2)
+		write_operand_l(op_dest, (int16_t)op_src->val);
+	if(op_src->size == 4) {
 		panic("movsx_size_err");
 	}
 	print_asm_template2();
