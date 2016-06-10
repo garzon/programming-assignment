@@ -35,5 +35,6 @@
 #include "control/cmp.h"
 #include "control/test.h"
 #include "control/jcc.h"
+#include "control/jmp.h"
 
 #include "special/special.h"
