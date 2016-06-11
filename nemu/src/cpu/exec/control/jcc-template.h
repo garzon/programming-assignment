@@ -39,9 +39,9 @@ static void do_execute() {
 
 	if(cond) {
 		cpu.eip += (DATA_TYPE_S)op_src->val;
-		print_asm("%s 0x%x (jumped)", opName, op_src->val);
+		print_asm("%s 0x%x (jumped)", opName, cpu.eip);
 	} else {
-		print_asm("%s 0x%x (not jumped)", opName, op_src->val);
+		print_asm("%s 0x%x (not jumped)", opName, cpu.eip);
 	}
 }
 
