@@ -157,7 +157,7 @@ helper_fun opcode_table [256] = {
 /* 0xf0 */	inv, inv, rep, rep,
 /* 0xf4 */	inv, inv, group3_b, group3_v,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	inv, inv, group4, group5
+/* 0xfc */	cld, inv, group4, group5
 };
 
 helper_fun _2byte_opcode_table [256] = {
@@ -197,10 +197,10 @@ helper_fun _2byte_opcode_table [256] = {
 /* 0x84 */	jcc_i_v, jcc_i_v, jcc_i_v, jcc_i_v,
 /* 0x88 */	jcc_i_v, jcc_i_v, jcc_i_v, jcc_i_v,
 /* 0x8c */	jcc_i_v, jcc_i_v, jcc_i_v, jcc_i_v,
-/* 0x90 */	inv2, inv2, inv2, inv2,
-/* 0x94 */	inv2, inv2, inv2, inv2,
-/* 0x98 */	inv2, inv2, inv2, inv2, 
-/* 0x9c */	inv2, inv2, inv2, inv2, 
+/* 0x90 */	setcc_rm_b, setcc_rm_b, setcc_rm_b, setcc_rm_b,
+/* 0x94 */	setcc_rm_b, setcc_rm_b, setcc_rm_b, setcc_rm_b,
+/* 0x98 */	setcc_rm_b, setcc_rm_b, setcc_rm_b, setcc_rm_b,
+/* 0x9c */	setcc_rm_b, setcc_rm_b, setcc_rm_b, setcc_rm_b,
 /* 0xa0 */	push_r_v, pop_r_v, inv2, inv2, 
 /* 0xa4 */	inv2, inv2, inv2, inv2,
 /* 0xa8 */	push_r_v, pop_r_v, inv2, inv2,
