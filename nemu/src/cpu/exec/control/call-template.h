@@ -7,8 +7,15 @@ static void do_execute() {
 	swaddr_write(cpu.esp, DATA_BYTE, (DATA_TYPE)cpu.eip+1+DATA_BYTE);
 	
 	switch(ops_decoded.opcode & 0xff) {
-		case 0xE8: cpu.eip += (DATA_TYPE_S)op_src->val; break;
-		case 0xFF: cpu.eip = (DATA_TYPE)op_src->val; break;
+		case 0xE8: 
+			cpu.eip += (DATA_TYPE_S)op_src->val; 
+			print_asm("CALL 0x%x", cpu.eip+DATA_BYTE+1);
+			break;
+		case 0xFF: 
+			cpu.eip = (DATA_TYPE)op_src->val; 
+			print_asm("CALL 0x%x", cpu.eip);
+			cpu.eip -= DATA_BYTE+1;
+			break;
 		default: panic("unknown CALL opcode");
 	}
 
@@ -16,7 +23,6 @@ static void do_execute() {
 	cpu.eip &= 0xffff;
 #endif
 
-	print_asm("CALL 0x%x", cpu.eip+DATA_BYTE+1);
 }
 
 make_instr_helper(i)
