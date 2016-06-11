@@ -4,7 +4,7 @@
 
 static void do_execute() {
 	cpu.esp -= DATA_BYTE;
-	swaddr_write(cpu.esp, DATA_BYTE, (DATA_TYPE)cpu.eip);
+	swaddr_write(cpu.esp, DATA_BYTE, (DATA_TYPE)cpu.eip+1+DATA_BYTE);
 	
 	switch(ops_decoded.opcode & 0xff) {
 		case 0xE8: cpu.eip += (DATA_TYPE_S)op_src->val; break;
