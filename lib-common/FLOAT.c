@@ -20,18 +20,19 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	return res | sgn;
 }
 
-FLOAT f2F(float a) {
+FLOAT f2F(float aa) {
+	uint32_t a = *((uint32_t*)(&a));
 	uint32_t val;
 	int v_exp;
 	FLOAT res;
 
 	// +-zero
-	if(((uint32_t)a & 0x7FFFFFFF) == 0) return a;
+	if((a & 0x7FFFFFFF) == 0) return a;
 	// +-inf
-	if(((uint32_t)a & 0x7FFFFFFF) == 0x7F800000) return (FLOAT)((uint32_t)a | 0xFFFFFF);
+	if((a & 0x7FFFFFFF) == 0x7F800000) return (FLOAT)((uint32_t)a | 0xFFFFFF);
 
-	v_exp = ((uint32_t)a & 0x7F800000) >> 23;
-	val = ((uint32_t)a & 0x7FFFFF) | 0x800000;
+	v_exp = (a & 0x7F800000) >> 23;
+	val = (a & 0x7FFFFF) | 0x800000;
 	// NaN
 	if(v_exp == 0xFF) nemu_assert(0);
 
@@ -46,7 +47,7 @@ FLOAT f2F(float a) {
 		}
 	}
 
-	res = (res & 0x7FFFFFFF) | ((uint32_t)(a) & 0x80000000);
+	res = (res & 0x7FFFFFFF) | (a & 0x80000000);
 	return res;
 }
 
