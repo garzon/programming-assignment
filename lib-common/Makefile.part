@@ -5,7 +5,7 @@ FLOAT_OBJ := $(FLOAT:.a=.o)
 $(FLOAT): $(FLOAT_OBJ)
 	ar r $(FLOAT) $(FLOAT_OBJ)
 
-newlib_FLOAT_CFLAGS_EXTRA := -c -m32 -fno-builtin 
+newlib_FLOAT_CFLAGS_EXTRA := -c -m32 -fno-builtin  -msoft-float -mno-sse 
 newlib_FLOAT_INCLUDE_FLAG := -Ilib-common
 newlib_FLOAT_OUTPUT_DIR_FLAG := -o obj/$(LIB_COMMON_DIR)/FLOAT.o
 
