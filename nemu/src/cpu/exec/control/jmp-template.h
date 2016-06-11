@@ -9,6 +9,7 @@ static void do_execute() {
 	} else {
 		cpu.eip = op_src->val;
 		print_asm("jmp(rm) 0x%x", cpu.eip);
+		cpu.eip -= 2;
 	}
 }
 

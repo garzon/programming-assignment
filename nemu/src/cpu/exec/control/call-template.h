@@ -14,7 +14,7 @@ static void do_execute() {
 		case 0xFF: 
 			cpu.eip = (DATA_TYPE)op_src->val; 
 			print_asm("CALL 0x%x", cpu.eip);
-			cpu.eip -= DATA_BYTE+1;
+			cpu.eip -= 2;
 			break;
 		default: panic("unknown CALL opcode");
 	}
