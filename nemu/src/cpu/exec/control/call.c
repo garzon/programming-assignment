@@ -1,11 +1,12 @@
 #include "cpu/exec/helper.h"
 
-make_helper(call_rel32) {
-	swaddr_t rel32 = eip + swaddr_read(eip + 1, 4);
-	cpu.esp -= 4;
-	swaddr_write(cpu.esp, 4, eip+5);
-	cpu.eip = rel32 + 4;
-	print_asm("CALL 0x%x", cpu.eip+1);
+#define DATA_BYTE 2
+#include "call-template.h"
+#undef DATA_BYTE
 
-	return 1;
-}
+#define DATA_BYTE 4
+#include "call-template.h"
+#undef DATA_BYTE
+
+make_helper_v(call_i)
+make_helper_v(call_rm)
