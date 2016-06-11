@@ -224,7 +224,7 @@ helper_fun _2byte_opcode_table [256] = {
 /* 0xf0 */	inv, inv, inv, inv,
 /* 0xf4 */	inv, inv, inv, inv,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	inv, inv, inv, inv
+/* 0xfc */	nop, inv, inv, inv
 };
 
 make_helper(exec) {
