@@ -6,8 +6,10 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	uint32_t sgn = (a ^ b) & 0x80000000;
 	a &= 0x7FFFFFFF;
 	b &= 0x7FFFFFFF;
-	uint64_t tmp = a * b;
-	FLOAT res = (tmp >> 16) & 0x7FFFFFFF;
+	a >>= 8;
+	b >>= 8;
+	uint32_t tmp = a * b;
+	FLOAT res = tmp & 0x7FFFFFFF;
 	return res | sgn;
 }
 
@@ -15,7 +17,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	uint32_t sgn = (a ^ b) & 0x80000000;
 	a &= 0x7FFFFFFF;
 	b &= 0x7FFFFFFF;
-	uint64_t tmp = a / b;
+	uint32_t tmp = a / b;
 	FLOAT res = (tmp << 16) & 0x7FFFFFFF;
 	return res | sgn;
 }
