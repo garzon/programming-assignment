@@ -4,10 +4,10 @@
 
 static void do_execute() {
 	DATA_TYPE a = op_dest->val;
-	DATA_TYPE b = op_src->val;
-	DATA_TYPE res = a+b+cpu.eflags_cf;
+	DATA_TYPE b = op_src->val + cpu.eflags_cf;
+	DATA_TYPE res = a+b;
 	cpu.eflags_cf = res < a || res < b;
-	cpu.eflags_of = (MSB(a) ^ MSB(b)) && (MSB(a) ^ MSB(res));
+	cpu.eflags_of = (MSB(a) ^ MSB(b) ^ 1) && (MSB(a) ^ MSB(res));
 	SET_PSZ_FLAGS(res);
 	OPERAND_W(op_dest, res);
 	print_asm_template2();

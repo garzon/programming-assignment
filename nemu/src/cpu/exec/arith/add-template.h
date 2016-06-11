@@ -7,7 +7,7 @@ static void do_execute() {
 	DATA_TYPE b = op_src->val;
 	DATA_TYPE res = a+b;
 	cpu.eflags_cf = res < a || res < b;
-	cpu.eflags_of = (MSB(a) ^ MSB(b)) && (MSB(a) ^ MSB(res));
+	cpu.eflags_of = (MSB(a) ^ MSB(b) ^ 1) && (MSB(a) ^ MSB(res));
 	cpu.eflags_sf = MSB(res);
 	cpu.eflags_zf = res == 0;
 	set_pf(res);
