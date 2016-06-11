@@ -38,15 +38,12 @@ FLOAT f2F(float aa) {
 	// NaN
 	if(v_exp == 0xFF) nemu_assert(0);
 
-	if(v_exp - 127 < -16) {
-		return 0;
+	v_exp = v_exp - 127;
+
+	if(v_exp < -16) {
+		res = val >> (-v_exp-16);
 	} else {
-		v_exp = v_exp - 127;
-		if(v_exp < -16+23) {
-			res = val >> (-v_exp-16+23);
-		} else {
-			res = val << (v_exp+16-23);
-		}
+		res = val << (v_exp+16);
 	}
 
 	res = (res & 0x7FFFFFFF) | (a & 0x80000000);
