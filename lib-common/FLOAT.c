@@ -1,23 +1,58 @@
 #include "FLOAT.h"
+#define uint32_t unsigned int
+#define uint64_t unsigned long long
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	nemu_assert(0);
-	return 0;
+	uint32_t sgn = (a ^ b) & 0x80000000;
+	a &= 0x7FFFFFFF;
+	b &= 0x7FFFFFFF;
+	uint64_t tmp = a * b;
+	FLOAT res = (tmp >> 16) & 0x7FFFFFFF;
+	return res | sgn;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	nemu_assert(0);
-	return 0;
+	uint32_t sgn = (a ^ b) & 0x80000000;
+	a &= 0x7FFFFFFF;
+	b &= 0x7FFFFFFF;
+	uint64_t tmp = a / b;
+	FLOAT res = (tmp << 16) & 0x7FFFFFFF;
+	return res | sgn;
 }
 
 FLOAT f2F(float a) {
-	nemu_assert(0);
-	return 0;
+	uint32_t val;
+	int v_exp;
+	FLOAT res;
+
+	// +-zero
+	if(((uint32_t)a & 0x7FFFFFFF) == 0) return a;
+	// +-inf
+	if(((uint32_t)a & 0x7FFFFFFF) == 0x7F800000) return (FLOAT)((uint32_t)a | 0xFFFFFF);
+
+	v_exp = ((uint32_t)a & 0x7F800000) >> 23;
+	val = ((uint32_t)a & 0x7FFFFF) | 0x800000;
+	// NaN
+	if(v_exp == 0xFF) nemu_assert(0);
+
+	if(v_exp - 127 < -16) {
+		return 0;
+	} else {
+		v_exp = v_exp - 127;
+		if(v_exp < -16+23) {
+			res = val >> (-v_exp-16+23);
+		} else {
+			res = val << (v_exp+16-23);
+		}
+	}
+
+	res = (res & 0x7FFFFFFF) | ((uint32_t)(a) & 0x80000000);
+	return res;
 }
 
 FLOAT Fabs(FLOAT a) {
-	nemu_assert(0);
-	return 0;
+	a &= 0x7FFFFFFF;
+	return a;
 }
 
 FLOAT sqrt(FLOAT x) {
@@ -44,3 +79,4 @@ FLOAT pow(FLOAT x, FLOAT y) {
 	return t;
 }
 
+#undef uint32_t
