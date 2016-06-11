@@ -5,9 +5,10 @@
 static void do_execute () {
 	DATA_TYPE result = op_dest->val & op_src->val;
 	OPERAND_W(op_dest, result);
-
-	/* TODO: Update EFLAGS. */
-	panic("please implement me");
+	
+	cpu.eflags_cf = 0;
+	cpu.eflags_of = 0;
+	SET_PSZ_FLAGS(result);
 
 	print_asm_template2();
 }

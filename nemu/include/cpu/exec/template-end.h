@@ -11,3 +11,9 @@
 #undef OPERAND_W
 
 #undef MSB
+
+#undef SET_PF
+#undef SET_SF
+#undef SET_ZF
+
+#undef SET_PSZ_FLAGS

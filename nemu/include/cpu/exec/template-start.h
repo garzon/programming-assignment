@@ -33,3 +33,8 @@
 #define OPERAND_W(op, src) concat(write_operand_, SUFFIX) (op, src)
 
 #define MSB(n) ((DATA_TYPE)(n) >> ((DATA_BYTE << 3) - 1))
+
+#define SET_ZF(res) cpu.eflags_zf = ((res) == 0)
+#define SET_SF(res) cpu.eflags_sf = MSB(res)
+#define SET_PF(res) set_pf(res)
+#define SET_PSZ_FLAGS(res) SET_ZF(res);SET_SF(res);SET_PF(res)
