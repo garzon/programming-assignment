@@ -40,10 +40,10 @@ FLOAT f2F(float aa) {
 
 	v_exp = v_exp - 127;
 
-	if(v_exp < -16) {
-		res = val >> (v_exp-16);
+	if(v_exp+16-23 > 0) {
+		res = val << (v_exp+16-23);
 	} else {
-		res = val << (-v_exp+16);
+		res = val >> (-v_exp-16+23);
 	}
 
 	res = (res & 0x7FFFFFFF) | (a & 0x80000000);
