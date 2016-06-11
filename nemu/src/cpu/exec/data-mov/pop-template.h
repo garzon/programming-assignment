@@ -11,7 +11,7 @@ static void do_execute() {
 	res = swaddr_read(cpu.esp, 4);
 	cpu.esp += 4;
 #endif
-	OPERAND_W(op_dest, res);
+	OPERAND_W(op_src, res);
 	print_asm_template1();
 }
 
