@@ -3,7 +3,7 @@
 nemu=obj/nemu/nemu
 cmd="c\nq"
 
-for file in $@; do
+for file in $(ls ~/pa/obj/testcase/*); do
 	printf "[$file]"
 	logfile=`basename $file`-log.txt
 	echo -e $cmd | /usr/bin/time -f '%e' -o time.log $nemu $file &> $logfile
