@@ -157,7 +157,7 @@ helper_fun opcode_table [256] = {
 /* 0xf0 */	inv, inv, rep, rep,
 /* 0xf4 */	inv, inv, group3_b, group3_v,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	inv, inv, group4, group5
+/* 0xfc */	nop, inv, group4, group5
 };
 
 helper_fun _2byte_opcode_table [256] = {
@@ -224,7 +224,7 @@ helper_fun _2byte_opcode_table [256] = {
 /* 0xf0 */	inv, inv, inv, inv,
 /* 0xf4 */	inv, inv, inv, inv,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	nop, inv, inv, inv
+/* 0xfc */	inv, inv, inv, inv
 };
 
 make_helper(exec) {
