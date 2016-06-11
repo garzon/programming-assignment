@@ -16,7 +16,7 @@ static void do_execute() {
 	cpu.eip &= 0xffff;
 #endif
 
-	print_asm("CALL 0x%x", cpu.eip);
+	print_asm("CALL 0x%x", cpu.eip+DATA_BYTE+1);
 }
 
 make_instr_helper(i)
