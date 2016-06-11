@@ -10,7 +10,7 @@ static void do_execute() {
 		print_asm_template2();
 	} else {
 		print_asm_template1();
-	}*/
+	}*/print_asm_template1();
 }
 
 make_instr_helper(i)
