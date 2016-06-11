@@ -5,20 +5,14 @@
 #undef DATA_BYTE
 
 #define DATA_BYTE 4
-#include "ret-template.h"
-#undef DATA_BYTE
-
-make_helper_v(ret_i)
-
-#define DATA_BYTE 4
 #include "cpu/exec/template-start.h"
 #define instr ret
 make_helper(ret) {
-	cpu.eip = swaddr_read(cpu.esp, 4)-1;
+	cpu.eip = swaddr_read(cpu.esp, 4);
 	cpu.esp += 4;
-	print_asm_template1();
+	print_asm("RET");
 
-	return 1;
+	return 0;
 }
 #include "cpu/exec/template-end.h"
 #undef DATA_BYTE
