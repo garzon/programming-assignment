@@ -12,6 +12,9 @@ static void do_execute() {
 		 OF = cpu.eflags_of,
 		 PF = cpu.eflags_pf;
 
+	uint32_t dest_addr = cpu.eip + (DATA_TYPE_S)op_src->val;
+	uint32_t show_addr = dest_addr + 1 + DATA_BYTE;
+
 	if(DATA_BYTE != 1)
 		opcode -= 0x10;
 	switch(opcode) {
@@ -37,11 +40,12 @@ static void do_execute() {
 #undef SUBOP
 	}
 
+
 	if(cond) {
-		cpu.eip += (DATA_TYPE_S)op_src->val;
-		print_asm("%s 0x%x (jumped)", opName, cpu.eip);
+		cpu.eip = dest_addr;
+		print_asm("%s 0x%x (jumped)", opName, show_addr);
 	} else {
-		print_asm("%s 0x%x (not jumped)", opName, cpu.eip);
+		print_asm("%s 0x%x (not jumped)", opName, show_addr);
 	}
 }
 
