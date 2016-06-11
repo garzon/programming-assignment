@@ -50,6 +50,7 @@ FLOAT f2F(float aa) {
 	}
 
 	res = (res & 0x7FFFFFFF) | (a & 0x80000000);
+	printf("f2F: %08x\n", (uint32_t)res);
 	return res;
 }
 
