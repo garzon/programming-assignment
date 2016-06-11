@@ -3,7 +3,7 @@
 #define instr stos
 
 make_helper(concat(stos_, SUFFIX)) {
-	swaddr_write(REG(R_EDI), REG(R_EAX), DATA_BYTE);
+	swaddr_write(REG(R_EDI), DATA_BYTE, REG(R_EAX));
 	if(cpu.eflags_df) {
 		REG(R_EDI) -= DATA_BYTE;
 	} else {

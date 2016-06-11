@@ -3,7 +3,7 @@
 #define instr movs
 
 make_helper(concat(movs_, SUFFIX)) {
-	swaddr_write(REG(R_EDI), swaddr_read(REG(R_ESI), DATA_BYTE), DATA_BYTE);
+	swaddr_write(REG(R_EDI), DATA_BYTE, swaddr_read(REG(R_ESI), DATA_BYTE));
 	if(cpu.eflags_df) {
 		REG(R_ESI) -= DATA_BYTE;
 		REG(R_EDI) -= DATA_BYTE;
