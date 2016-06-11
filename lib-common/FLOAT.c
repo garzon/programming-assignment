@@ -23,7 +23,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT f2F(float aa) {
-	uint32_t a = *((uint32_t*)(&a));
+	uint32_t a = *((uint32_t*)(&aa));
 	uint32_t val;
 	int v_exp;
 	FLOAT res;
