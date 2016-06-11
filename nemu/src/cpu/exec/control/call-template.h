@@ -4,11 +4,11 @@
 
 static void do_execute() {
 	cpu.esp -= DATA_BYTE;
-	swaddr_write(cpu.esp, DATA_BYTE, cpu.eip);
+	swaddr_write(cpu.esp, DATA_BYTE, (DATA_TYPE)cpu.eip);
 	
 	switch(ops_decoded.opcode & 0xff) {
 		case 0xE8: cpu.eip += (DATA_TYPE_S)op_src->val; break;
-		case 0xFF: cpu.eip = op_src->val; break;
+		case 0xFF: cpu.eip = (DATA_TYPE)op_src->val; break;
 		default: panic("unknown CALL opcode");
 	}
 
