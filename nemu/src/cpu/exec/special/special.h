@@ -2,6 +2,7 @@
 #define __SPECIAL_H__
 
 make_helper(inv);
+make_helper(inv2);
 make_helper(nemu_trap);
 
 #endif
