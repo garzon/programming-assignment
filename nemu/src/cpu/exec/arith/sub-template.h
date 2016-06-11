@@ -6,7 +6,7 @@ static void do_execute() {
 	DATA_TYPE a = op_dest->val;
 	DATA_TYPE b = op_src->val;
 	DATA_TYPE res;
-	if(op_src->size == 1 && op_dest->size >= 2) {
+	if(ops_decoded.opcode == 0x83) {
 		res = a + (-(int8_t)b);
 		bool sgn = b & 0x80;
 		cpu.eflags_of = (MSB(a) ^ sgn) && (MSB(a) ^ MSB(res));
