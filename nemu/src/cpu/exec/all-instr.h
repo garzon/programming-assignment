@@ -37,5 +37,6 @@
 #include "control/test.h"
 #include "control/jcc.h"
 #include "control/jmp.h"
+#include "control/ret.h"
 
 #include "special/special.h"
