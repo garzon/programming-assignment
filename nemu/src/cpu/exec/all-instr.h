@@ -31,6 +31,7 @@
 #include "logic/shrd.h"
 
 #include "string/rep.h"
+#include "string/movs.h"
 
 #include "misc/misc.h"
 
