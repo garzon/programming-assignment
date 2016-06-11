@@ -2,6 +2,7 @@
 
 #define instr idiv
 
+
 static void do_execute() {
 	int64_t a;
 	int32_t b = (DATA_TYPE_S)op_src->val;
