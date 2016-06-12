@@ -189,11 +189,12 @@ static struct StackInfo *load_stack_info(uint32_t ebp) {
 
 static int cmd_bt(char *args) {
 	struct StackInfo *info;
-	info = load_stack_info(cpu.ebp);
 	int counter = 0;
-	while(info) {
+	info = load_stack_info(cpu.ebp);
+	printf("#%d %s(0x%x, 0x%x, 0x%x, 0x%x)\n", counter, find_obj_name(cpu.eip), info->args[0], info->args[1], info->args[2], info->args[3]);
+	while(info && info->prev_ebp) {
 		counter++;
-		printf("#%d %s(0x%x, 0x%x, 0x%x, 0x%x)", counter, find_obj_name(info->ret_addr), info->args[0], info->args[1], info->args[2], info->args[3]);
+		printf("#%d %s(0x%x, 0x%x, 0x%x, 0x%x)\n", counter, find_obj_name(info->ret_addr), info->args[0], info->args[1], info->args[2], info->args[3]);
 		info = load_stack_info(info->prev_ebp);
 	}
 	return 0;
