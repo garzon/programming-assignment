@@ -19,7 +19,7 @@ FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
 }
 
 int main() { 
-	FLOAT eps = f2F(1e-4);
+	FLOAT eps = f2F(1e-3);
 
 	nemu_assert(f2F(12.45)-f2F(12.449999) < eps);
 
