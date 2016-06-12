@@ -1,5 +1,6 @@
 #include "FLOAT.h"
 #define uint32_t unsigned int
+#define uint64_t unsigned long long
 
 FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
 	uint32_t a, b, sgn;
@@ -11,7 +12,7 @@ FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
 
 	sgn = (a != aa) ^ (b != bb);
 	nemu_assert(sgn == 0);
-	res = a * b;
+	res = (uint64_t)a * (uint64_t)b;
 	nemu_assert(res == 0x100000000L);
 	res >>= 16;
 	res &= 0x7FFFFFFF;
@@ -93,3 +94,4 @@ FLOAT pow(FLOAT x, FLOAT y) {
 }
 
 #undef uint32_t
+#undef uint64_t
