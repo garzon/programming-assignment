@@ -19,10 +19,15 @@ FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
 }
 
 int main() { 
+	FLOAT eps = f2F(1e-4);
+
+	nemu_assert(f2F(0.1245)-f2F(0.124499) < eps);
+	nemu_assert(f2F(0.1245)-F_div_F(f2F(12.4499), int2F(100)) < eps);
+
 	FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
 	FLOAT ans = f2F(0.551222);
 
-	nemu_assert(Fabs(a - ans) < f2F(1e-4));
+	nemu_assert(Fabs(a - ans) < eps);
 	HIT_GOOD_TRAP;
 	return 0;
 }
