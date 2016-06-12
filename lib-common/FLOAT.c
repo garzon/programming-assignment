@@ -51,7 +51,10 @@ FLOAT f2F(float aa) {
 }
 
 FLOAT Fabs(FLOAT a) {
-	a ^= (!(a & 0x80000000)) - 1;
+	if(a < 0) {
+		a ^= (uint32_t)(-1);
+		a += 1;
+	}
 	return a;
 }
 
