@@ -2,24 +2,30 @@
 #define uint32_t unsigned int
 #define uint64_t unsigned long long
 
-FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	uint32_t sgn = (a ^ b) & 0x80000000;
-	a &= 0x7FFFFFFF;
-	b &= 0x7FFFFFFF;
+FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
+	uint32_t sgn, a, b;
+	a = Fabs(aa);
+	b = Fabs(bb);
+	sgn = (aa != a) ^ (bb != b);
 	a >>= 8;
 	b >>= 8;
 	uint32_t tmp = a * b;
 	FLOAT res = tmp & 0x7FFFFFFF;
-	return res | sgn;
+	if(sgn) res = -res;
+	return res;
 }
 
-FLOAT F_div_F(FLOAT a, FLOAT b) {
-	uint32_t sgn = (a ^ b) & 0x80000000;
+FLOAT F_div_F(FLOAT aa, FLOAT bb) {
+	uint32_t sgn, a, b;
+	a = Fabs(aa);
+	b = Fabs(bb);
+	sgn = (aa != a) ^ (bb != b);
+	a <<= 16;
 	a &= 0x7FFFFFFF;
-	b &= 0x7FFFFFFF;
 	uint32_t tmp = a / b;
-	FLOAT res = (tmp << 16) & 0x7FFFFFFF;
-	return res | sgn;
+	FLOAT res = tmp & 0x7FFFFFFF;
+	if(sgn) res = -res;
+	return res;
 }
 
 FLOAT f2F(float aa) {
@@ -47,16 +53,13 @@ FLOAT f2F(float aa) {
 	}
 
 	if(res == 0) return 0;
-	res = (res & 0x7FFFFFFF) | (a & 0x80000000);
+	res &= 0x7FFFFFFF;
+	if(a & 0x80000000) res = -res;
 	return res;
 }
 
 FLOAT Fabs(FLOAT a) {
-	if(a < 0) {
-		a ^= (uint32_t)(-1);
-		a += 1;
-	}
-	return a;
+	return (a < 0) ? (-a) : a;
 }
 
 FLOAT sqrt(FLOAT x) {
