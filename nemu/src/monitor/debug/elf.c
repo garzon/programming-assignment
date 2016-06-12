@@ -109,7 +109,10 @@ const char *find_obj_name(uint32_t addr) {
 		if(current->st_value <= addr) {
 			uint32_t offset = addr - current->st_value;
 			if(offset >= current->st_size) continue;
-			snprintf(objname_sprintf_buffer, 128, "0x%x <%s+0x%x>", addr, (const char *)(strtab + current->st_name), offset);
+			if(offset)
+				snprintf(objname_sprintf_buffer, 128, "0x%x <%s+0x%x>", addr, (const char *)(strtab + current->st_name), offset);
+			else
+				snprintf(objname_sprintf_buffer, 128, "0x%x <%s>", addr, (const char *)(strtab + current->st_name));
 			return objname_sprintf_buffer;
 		}
 	}
