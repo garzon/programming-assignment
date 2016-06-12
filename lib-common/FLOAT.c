@@ -2,29 +2,23 @@
 #define uint32_t unsigned int
 #define uint64_t unsigned long long
 
-FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
-	uint32_t sgn, a, b;
-	a = Fabs(aa);
-	b = Fabs(bb);
-	sgn = (aa != a) ^ (bb != b);
-	a >>= 8;
-	b >>= 8;
-	uint32_t tmp = a * b;
-	FLOAT res = tmp & 0x7FFFFFFF;
-	if(sgn) res = -res;
-	return res;
+FLOAT F_mul_F(FLOAT a, FLOAT b) {
+	uint64_t res = a * b;
+	return res >> 16;
 }
 
-FLOAT F_div_F(FLOAT aa, FLOAT bb) {
-	uint32_t sgn, a, b;
-	a = Fabs(aa);
-	b = Fabs(bb);
-	sgn = (aa != a) ^ (bb != b);
-	a <<= 16;
-	a &= 0x7FFFFFFF;
-	uint32_t tmp = a / b;
-	FLOAT res = tmp & 0x7FFFFFFF;
-	if(sgn) res = -res;
+FLOAT F_div_F(FLOAT a, FLOAT b) {
+	FLOAT res = a / b;
+	int i;
+	a = a % b;
+	for(i=0; i<16; i++) {
+		res <<= 1;
+		a <<= 1;
+		if(a >= b) {
+			res |= 1;
+			a -= b;
+		}
+	}
 	return res;
 }
 
