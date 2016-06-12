@@ -7,8 +7,12 @@ FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
 	FLOAT ret;
 	a = Fabs(aa);
 	b = Fabs(bb);
+	nemu_assert(a == 0x10000);
+
 	sgn = (a != aa) ^ (b != bb);
+	nemu_assert(sgn == 0);
 	res = a * b;
+	nemu_assert(res == 0x100000000L);
 	res >>= 16;
 	res &= 0x7FFFFFFF;
 	ret = res;
