@@ -3,7 +3,7 @@
 #define uint64_t unsigned long long
 
 FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
-	/*uint32_t a, b, sgn;
+	uint32_t a, b, sgn;
 	unsigned long long res;
 	FLOAT ret;
 	a = Fabs(aa);
@@ -13,9 +13,7 @@ FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
 	res >>= 16;
 	res &= 0x7FFFFFFF;
 	ret = res;
-	return sgn ? -ret : ret;*/
-	long long res = aa * bb;
-	return res >> 16;
+	return sgn ? -ret : ret;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
