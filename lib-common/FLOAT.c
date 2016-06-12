@@ -23,7 +23,7 @@ FLOAT F_div_F(FLOAT aa, FLOAT bb) {
 	a = Fabs(aa);
 	b = Fabs(bb);
 	sgn = (a != aa) ^ (b != bb);
-	set_bp();
+	nemu_assert(b != 0);
 	res = a / b;
 	a = a % b;
 	for(i=0; i<16; i++) {
