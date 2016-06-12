@@ -95,12 +95,9 @@ static int cmd_x(char *args) {
 
 	if(arg != NULL)
 		num = atoi(arg);
-	else {
-		printf("Invalid argument for command 'x'.\n");
-		return 0;
-	}
 	if(num == 0) {
 		printf("Invalid argument '%s'\n", arg);
+		return 0;
 	}
 
 	arg = strtok(NULL, " ");
