@@ -51,7 +51,7 @@ FLOAT f2F(float aa) {
 }
 
 FLOAT Fabs(FLOAT a) {
-	a &= 0x7FFFFFFF;
+	a ^= (!(a & 0x80000000)) - 1;
 	return a;
 }
 
