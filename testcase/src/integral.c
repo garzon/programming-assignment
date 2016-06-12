@@ -26,12 +26,13 @@ int main() {
 	FLOAT bb = int2F(100);
 	nemu_assert(bb == 0x640000);
 	FLOAT tmp = F_div_F(aa, bb);
-	nemu_assert(f2F(124.499)-tmp < eps);
+	nemu_assert(f2F(124.499)-tmp < int2F(1));
 
 	FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
 	FLOAT ans = f2F(0.551222);
 
-	nemu_assert(Fabs(a - ans) < eps);
+	FLOAT diff = a - ans;
+	nemu_assert(Fabs(diff) < eps);
 	HIT_GOOD_TRAP;
 	return 0;
 }
