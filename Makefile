@@ -54,7 +54,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/integral #$(BUILD_OBJ)
+USERPROG := obj/testcase/add #$(BUILD_OBJ)
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
