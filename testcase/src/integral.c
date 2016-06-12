@@ -28,8 +28,9 @@ int main() {
 	nemu_assert(bb == 0xa0000);
 
 	FLOAT tmp = F_mul_F(aa, bb);
-	tmp = F_div_F(aa, bb);
-	tmp = F_mul_F(aa, bb);
+	tmp = F_div_int(aa, 5);
+	tmp = F_div_int(aa, 2);
+	tmp = F_mul_int(aa, 10);
 
 	nemu_assert(f2F(1244.99)-tmp < eps);
 
