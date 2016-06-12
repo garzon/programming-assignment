@@ -62,7 +62,9 @@ int main() {
 	nemu_assert(Fabs(f(f2F(0.4))-f2F(0.2)) < eps);
 	nemu_assert(Fabs(f(f2F(0.2))-f2F(0.5)) < eps);*/
 	//nemu_assert(Fabs(f(f2F(1))-f2F(0.0384615)) < eps);
-	nemu_assert(Fabs(f(f2F(1))-f2F(1/26.0)) < eps);
+	FLOAT X= f(f2F(1));
+	FLOAT tmp=f2F(1/26.0);
+	nemu_assert(Fabs(X-tmp) < eps);
 
 	/*FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
 	FLOAT ans = f2F(0.551222);
