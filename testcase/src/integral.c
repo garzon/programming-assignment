@@ -21,12 +21,22 @@ FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
 int main() { 
 	FLOAT eps = f2F(1e-4);
 
-	nemu_assert(f2F(0.1245)-f2F(0.124499) < eps);
-	FLOAT aa = f2F(12449.9);
-	FLOAT bb = int2F(100);
-	nemu_assert(bb == 0x640000);
-	FLOAT tmp = F_div_F(aa, bb);
-	nemu_assert(f2F(124.499)-tmp < int2F(1));
+	nemu_assert(f2F(12.45)-f2F(12.449999) < eps);
+
+	FLOAT aa = f2F(124.99);
+	FLOAT bb = int2F(10);
+	nemu_assert(bb == 0xa0000);
+
+	FLOAT tmp = F_mul_F(aa, bb);
+	tmp = F_div_F(aa, bb);
+	tmp = F_mul_F(aa, bb);
+
+	nemu_assert(f2F(1244.99)-tmp < eps);
+
+	nemu_assert(F2int(int2F(-1)) == -1);
+	nemu_assert(F2int(int2F(-3263)) == -3263);
+
+	nemu_assert(Fabs(F_mul_F(bb, int2F(-1)))-bb < eps);
 
 	FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
 	FLOAT ans = f2F(0.551222);
