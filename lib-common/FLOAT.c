@@ -16,9 +16,14 @@ FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
 	return sgn ? -ret : ret;
 }
 
-FLOAT F_div_F(FLOAT a, FLOAT b) {
-	FLOAT res = a / b;
+FLOAT F_div_F(FLOAT aa, FLOAT bb) {
+	uint32_t a, b, sgn;
+	FLOAT res;
 	int i;
+	a = Fabs(aa);
+	b = Fabs(bb);
+	sgn = (a != aa) ^ (b != bb);
+	res = a / b;
 	a = a % b;
 	for(i=0; i<16; i++) {
 		res <<= 1;
@@ -28,7 +33,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 			a -= b;
 		}
 	}
-	return res;
+	return sgn ? -res : res;
 }
 
 FLOAT f2F(float aa) {
