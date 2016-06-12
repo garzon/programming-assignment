@@ -191,7 +191,7 @@ static int cmd_bt(char *args) {
 	struct StackInfo *info;
 	int counter = 0;
 	info = load_stack_info(cpu.ebp);
-	printf("#%d %s(0x%x, 0x%x, 0x%x, 0x%x)\n", counter, find_obj_name(cpu.eip), info->args[0], info->args[1], info->args[2], info->args[3]);
+	printf("Now %s(0x%x, 0x%x, 0x%x, 0x%x)\n", find_obj_name(cpu.eip), info->args[0], info->args[1], info->args[2], info->args[3]);
 	while(info && info->prev_ebp) {
 		counter++;
 		printf("#%d %s(0x%x, 0x%x, 0x%x, 0x%x)\n", counter, find_obj_name(info->ret_addr), info->args[0], info->args[1], info->args[2], info->args[3]);
