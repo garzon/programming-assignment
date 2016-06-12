@@ -163,7 +163,7 @@ static int cmd_d(char *args) {
 	if(!res) {
 		printf("Invalid watchpoint id.\n");
 	} else {		
-		printf("Delete watchpoint %d", res);
+		printf("Delete watchpoint %d\n", res);
 		free_wp(res);
 	}
 	return 0;
