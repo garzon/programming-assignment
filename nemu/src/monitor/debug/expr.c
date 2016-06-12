@@ -63,7 +63,7 @@ static struct rule {
 	{"\\)", OTHERS, RIGHT_PAR},
 	{"0x[0-9a-fA-F]+", VALUE, HEX_INTEGER},
 	{"[0-9]+", VALUE, INTEGER},
-	{"[a-z_][0-9a-z_]+", VALUE, IDENTIFIER},
+	{"[a-zA-Z_][0-9A-Za-z_]+", VALUE, IDENTIFIER},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -110,7 +110,7 @@ static bool make_token(const char *e) {
 				const char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
+				//Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
 				if(rules[i].token_type == NOTYPE) break;
@@ -255,7 +255,7 @@ uint32_t eval(int p, int q) {
 	int op, counter = 0, old_op = -1;
 	uint32_t val1, val2;
 	if(p > q) {
-		return invalid_expr("Unknown - overflow");
+		return invalid_expr("Unknown error - overflow");
 	}
 	else if(p == q) {
 		if(tokens[p].category != VALUE) {
@@ -272,10 +272,11 @@ uint32_t eval(int p, int q) {
 			case IDENTIFIER:
 				val1 = symtab_value(tokens[p].str);
 				if(val1) return val1;
+				printf("%s: ", tokens[p].str);
 				return invalid_expr("identifier not found");
 			default:
 				printf("%s: ", tokens[p].str);
-				return invalid_expr("Unknown value type");
+				return invalid_expr("Unknown Value type");
 		}
 	}
 	else if(check_parentheses(p, q) == true) {
