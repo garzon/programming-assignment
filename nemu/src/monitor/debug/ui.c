@@ -45,6 +45,7 @@ static int cmd_info(char *args) {
 	char *arg = strtok(NULL, " ");
 	if(!arg) {
 		printf("Invalid argument for command 'info'.\n");
+		return 0;
 	}
 	bool flag = false;
 	if(!strcasecmp(arg, "r")) {
