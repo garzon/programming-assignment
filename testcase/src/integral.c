@@ -11,8 +11,9 @@ FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
 	FLOAT s,h;
 	h = F_div_int((b - a), n);
 	s = F_div_int(fun(a) + fun(b), 2 );
-	for(k = 1; k <= n; k ++) {
+	for(k = 1; k < n; k ++) {
 		s += fun(a + F_mul_int(h, k));
+		set_bp();
 	}
 	s = F_mul_F(s, h);
 	return s;
@@ -20,7 +21,7 @@ FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
 
 int main() { 
 	FLOAT eps = f2F(1e-4);
-
+/*
 	nemu_assert(f2F(12.45)-f2F(12.449999) < eps);
 
 	FLOAT aa = f2F(124.99);
@@ -64,13 +65,13 @@ int main() {
 	nemu_assert(Fabs(f(f2F(1))-f2F(0.0384615)) < eps);
 	FLOAT X= f(f2F(1.0));
 	FLOAT ttmp=f2F(1/26.0);
-	nemu_assert(Fabs(X-ttmp) < eps);
+	nemu_assert(Fabs(X-ttmp) < eps);*/
 
-	/*FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
+	FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
 	FLOAT ans = f2F(0.551222);
 
 	FLOAT diff = a - ans;
-	nemu_assert(Fabs(diff) < eps);*/
+	nemu_assert(Fabs(diff) < eps);
 	HIT_GOOD_TRAP;
 	return 0;
 }
