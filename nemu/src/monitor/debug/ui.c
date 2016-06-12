@@ -154,6 +154,10 @@ static int cmd_w(char *args) {
 }
 
 static int cmd_d(char *args) {
+	if(!args) {
+		printf("Invalid argument for command 'd'.\n");
+		return 0;
+	}
 	uint32_t res = atoi(args);
 
 	if(!res) {
