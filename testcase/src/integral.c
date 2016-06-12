@@ -21,7 +21,6 @@ FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
 int main() { 
 	FLOAT eps = f2F(1e-3);
 
-/*
 	nemu_assert(f2F(12.45)-f2F(12.449999) < eps);
 
 	FLOAT aa = f2F(124.99);
@@ -39,7 +38,7 @@ int main() {
 	nemu_assert(F2int(int2F(-3263)) == -3263);
 
 	nemu_assert(Fabs(F_mul_F(bb, int2F(-1)))-bb < eps);
-*/
+
 	FLOAT x = f2F(1.0);
 	nemu_assert(x == 0x10000);
 	FLOAT A = F_mul_F(x, x);
@@ -50,9 +49,9 @@ int main() {
 	nemu_assert(Fabs(A - f2F(26.0)) < eps);
 	A = F_div_F(int2F(1), A);
 	nemu_assert(Fabs(A - f2F(1/26.0)) < eps);
-/**/	
 
-	/*nemu_assert(Fabs(f(f2F(-0.8))-f2F(0.0588235)) < eps);
+
+	nemu_assert(Fabs(f(f2F(-0.8))-f2F(0.0588235)) < eps);
 	nemu_assert(Fabs(f(f2F(-0.6))-f2F(0.1)) < eps);
 	nemu_assert(Fabs(f(f2F(-0.4))-f2F(0.2)) < eps);
 	nemu_assert(Fabs(f(f2F(-0.2))-f2F(0.5)) < eps);
@@ -61,17 +60,17 @@ int main() {
 	nemu_assert(Fabs(f(f2F(0.8))-f2F(0.0588235)) < eps);
 	nemu_assert(Fabs(f(f2F(0.6))-f2F(0.1)) < eps);
 	nemu_assert(Fabs(f(f2F(0.4))-f2F(0.2)) < eps);
-	nemu_assert(Fabs(f(f2F(0.2))-f2F(0.5)) < eps);*/
-	//nemu_assert(Fabs(f(f2F(1))-f2F(0.0384615)) < eps);
+	nemu_assert(Fabs(f(f2F(0.2))-f2F(0.5)) < eps);
+	nemu_assert(Fabs(f(f2F(1))-f2F(0.0384615)) < eps);
 	FLOAT X= f(f2F(1.0));
-	FLOAT tmp=f2F(1/26.0);
-	nemu_assert(Fabs(X-tmp) < eps);
+	FLOAT ttmp=f2F(1/26.0);
+	nemu_assert(Fabs(X-ttmp) < eps);
 
-	/*FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
+	FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
 	FLOAT ans = f2F(0.551222);
 
 	FLOAT diff = a - ans;
-	nemu_assert(Fabs(diff) < eps);*/
+	nemu_assert(Fabs(diff) < eps);
 	HIT_GOOD_TRAP;
 	return 0;
 }
