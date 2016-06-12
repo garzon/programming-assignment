@@ -19,8 +19,8 @@ FLOAT computeT(int n, FLOAT a, FLOAT b, FLOAT (*fun)(FLOAT)) {
 }
 
 int main() { 
-	FLOAT eps = f2F(1e-3);
-
+	FLOAT eps = f2F(1e-4);
+/*
 	nemu_assert(f2F(12.45)-f2F(12.449999) < eps);
 
 	FLOAT aa = f2F(124.99);
@@ -37,7 +37,7 @@ int main() {
 	nemu_assert(F2int(int2F(-1)) == -1);
 	nemu_assert(F2int(int2F(-3263)) == -3263);
 
-	nemu_assert(Fabs(F_mul_F(bb, int2F(-1)))-bb < eps);
+	nemu_assert(Fabs(F_mul_F(bb, int2F(-1)))-bb < eps);*/
 
 	nemu_assert(Fabs(f(f2F(-1+0.2))-f2F(0.0588235)) < eps);
 	nemu_assert(Fabs(f(f2F(-1+0.4))-f2F(0.1)) < eps);
