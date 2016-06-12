@@ -1,4 +1,5 @@
 #include "cpu/exec/helper.h"
+#include "jcc.h"
 
 #define DATA_BYTE 1
 #include "jcc-template.h"

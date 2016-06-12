@@ -43,9 +43,9 @@ static void do_execute() {
 
 	if(cond) {
 		cpu.eip = dest_addr;
-		print_asm("%s 0x%x (jumped)", opName, show_addr);
+		print_asm("%s %s (jumped)", opName, find_obj_name(show_addr));
 	} else {
-		print_asm("%s 0x%x (not jumped)", opName, show_addr);
+		print_asm("%s %s (not jumped)", opName, find_obj_name(show_addr));
 	}
 }
 
