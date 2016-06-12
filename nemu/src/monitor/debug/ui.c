@@ -43,6 +43,9 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
 	char *arg = strtok(NULL, " ");
+	if(!arg) {
+		printf("Invalid argument for command 'info'.\n");
+	}
 	bool flag = false;
 	if(!strcasecmp(arg, "r")) {
 		printf("EAX: 0x%08X\t", cpu.eax);
