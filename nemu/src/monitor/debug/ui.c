@@ -71,6 +71,11 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_p(char *args) {
+	if(!args) {
+		printf("Invalid argument for command 'p'.\n");
+		return 0;
+	}
+
 	bool succ;
 	uint32_t res = expr(args, &succ);
 
@@ -90,6 +95,10 @@ static int cmd_x(char *args) {
 
 	if(arg != NULL)
 		num = atoi(arg);
+	else {
+		printf("Invalid argument for command 'x'.\n");
+		return 0;
+	}
 	if(num == 0) {
 		printf("Invalid argument '%s'\n", arg);
 	}
