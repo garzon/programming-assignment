@@ -22,7 +22,10 @@ int main() {
 	FLOAT eps = f2F(1e-4);
 
 	nemu_assert(f2F(0.1245)-f2F(0.124499) < eps);
-	FLOAT tmp = F_div_F(f2F(12.4499), int2F(100));
+	FLOAT aa = f2F(12.4499);
+	FLOAT bb = int2F(100);
+	nemu_assert(bb == 0x640000);
+	FLOAT tmp = F_div_F(aa, bb);
 	nemu_assert(f2F(0.124498)-tmp < eps);
 
 	FLOAT a = computeT(10, f2F(-1.0), f2F(1.0), f);
