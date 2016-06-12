@@ -128,6 +128,11 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_w(char *args) {
+	if(!args) {
+		printf("Invalid argument for command 'w'.\n");
+		return 0;
+	}
+
 	bool succ;
 	uint32_t res = expr(args, &succ);
 	WP *wp;
