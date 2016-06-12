@@ -10,7 +10,7 @@ FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
 	sgn = (a != aa) ^ (b != bb);
 	res = a * b;
 	res >>= 16;
-	res &= 0xFFFFFFFF;
+	res &= 0x7FFFFFFF;
 	ret = res;
 	return sgn ? -ret : ret;
 }
