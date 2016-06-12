@@ -179,6 +179,7 @@ struct StackInfo {
 static struct StackInfo stackinfo_buf;
 
 static struct StackInfo *load_stack_info(uint32_t ebp) {
+	if(!ebp) return NULL;
 	int times = sizeof(struct StackInfo)/4, i;
 	for(i=0; i<times; i++) {
 		*(((uint32_t *)&stackinfo_buf)+i) = swaddr_read(ebp+i*4, 4);
