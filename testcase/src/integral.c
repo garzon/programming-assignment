@@ -41,8 +41,9 @@ int main() {
 	nemu_assert(Fabs(F_mul_F(bb, int2F(-1)))-bb < eps);
 */
 	FLOAT x = f2F(1.0);
+	nemu_assert(x == 0x10000);
 	FLOAT A = F_mul_F(x, x);
-	nemu_assert(Fabs(A - f2F(1.0)) < eps);
+	nemu_assert(A == 0x10000);
 	A = F_mul_int(A, 25);
 	nemu_assert(Fabs(A - f2F(25.0)) < eps);
 	A = A + int2F(1);
