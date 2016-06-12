@@ -1,9 +1,8 @@
 #include "FLOAT.h"
 #define uint32_t unsigned int
-#define uint64_t unsigned long long
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	uint64_t res = a * b;
+	long long res = a * b;
 	return res >> 16;
 }
 
