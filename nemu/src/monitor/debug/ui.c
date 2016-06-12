@@ -1,6 +1,7 @@
 #include "monitor/monitor.h"
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
+#include "monitor/elf.h"
 #include "nemu.h"
 
 #include <stdlib.h>
@@ -169,6 +170,34 @@ static int cmd_d(char *args) {
 	return 0;
 }
 
+struct StackInfo {
+	uint32_t prev_ebp;
+	uint32_t ret_addr;
+	uint32_t args[4];
+};
+
+static struct StackInfo stackinfo_buf;
+
+static struct StackInfo *load_stack_info(uint32_t ebp) {
+	int times = sizeof(struct StackInfo)/4, i;
+	for(i=0; i<times; i++) {
+		*(((uint32_t *)&stackinfo_buf)+i) = swaddr_read(ebp+i*4, 4);
+	}
+	return &stackinfo_buf;
+};
+
+static int cmd_bt(char *args) {
+	struct StackInfo *info;
+	info = load_stack_info(cpu.ebp);
+	int counter = 0;
+	while(info) {
+		counter++;
+		printf("#%d %s(0x%x, 0x%x, 0x%x, 0x%x)", counter, find_obj_name(info->ret_addr), info->args[0], info->args[1], info->args[2], info->args[3]);
+		info = load_stack_info(info->prev_ebp);
+	}
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -184,6 +213,7 @@ static struct {
 	{ "x", "x [N] [expr]: \n\tprint the DWORDs from the memory address specified in [expr] N times", cmd_x },
 	{ "d", "d [N]: \n\tdelete the #N watchpoint", cmd_d },
 	{ "w", "w [expr]: \n\twatch the expr and interrupt when it changes", cmd_w },
+	{ "bt", "bt: print the backtrace", cmd_bt },
 	{ "q", "Exit NEMU", cmd_q },
 
 	/* TODO: Add more commands */
