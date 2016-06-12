@@ -1,4 +1,5 @@
 #include "cpu/exec/helper.h"
+#include "ret.h"
 
 #define DATA_BYTE 2
 #include "ret-template.h"

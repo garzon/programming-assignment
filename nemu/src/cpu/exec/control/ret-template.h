@@ -7,9 +7,9 @@ static void do_execute() {
 	cpu.esp += 4;
 	if(op_src->type == OP_TYPE_IMM) {
 		cpu.esp += op_src->val;
-		print_asm_template2();
+		print_asm("RET %d to %s", op_src->val, find_obj_name(cpu.eip));
 	} else {
-		print_asm_template1();
+		print_asm("RET to %s", find_obj_name(cpu.eip));
 	}
 }
 
