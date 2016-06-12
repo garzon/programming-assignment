@@ -39,6 +39,16 @@ int main() {
 
 	nemu_assert(Fabs(F_mul_F(bb, int2F(-1)))-bb < eps);*/
 
+	FLOAT x = f2F(-1+0.2);
+	FLOAT A = F_mul_F(x, x);
+	nemu_assert(Fabs(A - f2F(0.64)) < eps);
+	A = F_mul_int(A, 25);
+	nemu_assert(Fabs(A - f2F(16.0)) < eps);
+	A = A + int2F(1);
+	nemu_assert(Fabs(A - f2F(17.0)) < eps);
+	A = F_div_F(int2F(1), A);
+	nemu_assert(Fabs(A - f2F(0.0588235)) < eps);
+
 	nemu_assert(Fabs(f(f2F(-1+0.2))-f2F(0.0588235)) < eps);
 	nemu_assert(Fabs(f(f2F(-1+0.4))-f2F(0.1)) < eps);
 	nemu_assert(Fabs(f(f2F(-1+1.4))-f2F(0.2)) < eps);
