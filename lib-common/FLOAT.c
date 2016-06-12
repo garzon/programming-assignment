@@ -46,6 +46,7 @@ FLOAT f2F(float aa) {
 		res = val >> (-v_exp-16+23);
 	}
 
+	if(res == 0) return 0;
 	res = (res & 0x7FFFFFFF) | (a & 0x80000000);
 	return res;
 }
