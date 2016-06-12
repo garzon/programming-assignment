@@ -29,7 +29,7 @@ FLOAT f2F(float aa) {
 	FLOAT res;
 
 	// +-zero
-	if((a & 0x7FFFFFFF) == 0) return a;
+	if((a & 0x7FFFFFFF) == 0) return 0;
 	// +-inf
 	if((a & 0x7FFFFFFF) == 0x7F800000) return (FLOAT)((uint32_t)a | 0xFFFFFF);
 
