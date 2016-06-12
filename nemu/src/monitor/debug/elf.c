@@ -1,6 +1,4 @@
-#include "common.h"
-#include <stdlib.h>
-#include <elf.h>
+#include "monitor/elf.h"
 
 char *exec_file = NULL;
 
@@ -83,3 +81,19 @@ void load_elf_tables(int argc, char *argv[]) {
 	fclose(fp);
 }
 
+#define SYMTAB_TYPE_FUNC (0x12)
+#define SYMTAB_TYPE_VAR (0x11)
+
+uint32_t symtab_value(const char *key_name) {
+	int i;
+	for(i=0; i<nr_symtab_entry; i++) {
+		Elf32_Sym *current = &(symtab[i]);
+		const char *name_ptr = (const char *)(current->st_name + strtab);
+		if(current->st_info != SYMTAB_TYPE_VAR && current->st_info != SYMTAB_TYPE_FUNC)
+			continue;
+		if(!strcmp(key_name, name_ptr)) {
+			return current->st_value;
+		}
+	}
+	return 0;
+}

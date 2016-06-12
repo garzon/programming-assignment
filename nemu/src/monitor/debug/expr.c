@@ -8,6 +8,8 @@
 #include <sys/types.h>
 #include <regex.h>
 
+#include "monitor/elf.h"
+
 enum {
 	VALUE,
 	OPERATOR,
@@ -30,6 +32,7 @@ enum {
 	BANG = '!',
 	LOGIC_OR = '|',
 	LOGIC_AND = '&',
+	IDENTIFIER = 'v',
 
 	/* TODO: Add more token types */
 
@@ -59,7 +62,8 @@ static struct rule {
 	{"\\(", OTHERS, LEFT_PAR},
 	{"\\)", OTHERS, RIGHT_PAR},
 	{"0x[0-9a-fA-F]+", VALUE, HEX_INTEGER},
-	{"[0-9]+", VALUE, INTEGER}
+	{"[0-9]+", VALUE, INTEGER},
+	{"[a-z_][0-9a-z_]+", VALUE, IDENTIFIER},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -265,6 +269,10 @@ uint32_t eval(int p, int q) {
 				return strtol(tokens[p].str, NULL, 16);
 			case REGISTER:
 				return register_eval(tokens[p].str);
+			case IDENTIFIER:
+				val1 = symtab_value(tokens[p].str);
+				if(val1) return val1;
+				return invalid_expr("identifier not found");
 			default:
 				printf("%s: ", tokens[p].str);
 				return invalid_expr("Unknown value type");
