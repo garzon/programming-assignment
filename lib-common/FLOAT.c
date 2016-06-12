@@ -17,8 +17,8 @@ FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
 }
 
 FLOAT F_div_F(FLOAT aa, FLOAT bb) {
-	uint32_t a, b, sgn;
-	FLOAT res;
+	uint32_t a, b, sgn, res;
+	FLOAT ret;
 	int i;
 	a = Fabs(aa);
 	b = Fabs(bb);
@@ -34,7 +34,9 @@ FLOAT F_div_F(FLOAT aa, FLOAT bb) {
 			a -= b;
 		}
 	}
-	return sgn ? -res : res;
+	res &= 0x7FFFFFFF;
+	ret = res;
+	return sgn ? -ret : ret;
 }
 
 FLOAT f2F(float aa) {
