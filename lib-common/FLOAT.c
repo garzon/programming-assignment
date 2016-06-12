@@ -1,9 +1,18 @@
 #include "FLOAT.h"
 #define uint32_t unsigned int
 
-FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	long long res = a * b;
-	return res >> 16;
+FLOAT F_mul_F(FLOAT aa, FLOAT bb) {
+	uint32_t a, b, sgn;
+	unsigned long long res;
+	FLOAT ret;
+	a = Fabs(aa);
+	b = Fabs(bb);
+	sgn = (a != aa) ^ (b != bb);
+	res = a * b;
+	res >>= 16;
+	res &= 0xFFFFFFFF;
+	ret = res;
+	return sgn ? -ret : ret;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
