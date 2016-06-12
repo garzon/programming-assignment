@@ -9,12 +9,12 @@ static void do_execute() {
 		case 0xE8: 
 			swaddr_write(cpu.esp, DATA_BYTE, (DATA_TYPE)cpu.eip+1+DATA_BYTE);
 			cpu.eip += (DATA_TYPE_S)op_src->val; 
-			print_asm("CALL 0x%x", cpu.eip+DATA_BYTE+1);
+			print_asm("CALL %s", find_obj_name(cpu.eip+DATA_BYTE+1));
 			break;
 		case 0xFF: 
 			swaddr_write(cpu.esp, DATA_BYTE, (DATA_TYPE)cpu.eip+2);
 			cpu.eip = (DATA_TYPE)op_src->val; 
-			print_asm("CALL 0x%x", cpu.eip);
+			print_asm("CALL %s", find_obj_name(cpu.eip));
 			cpu.eip -= 2;
 			break;
 		default: panic("unknown CALL opcode");

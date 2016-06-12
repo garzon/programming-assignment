@@ -1,4 +1,5 @@
 #include "cpu/exec/helper.h"
+#include "call.h"
 
 #define DATA_BYTE 2
 #include "call-template.h"

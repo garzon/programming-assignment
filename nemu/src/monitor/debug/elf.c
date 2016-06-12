@@ -97,3 +97,22 @@ uint32_t symtab_value(const char *key_name) {
 	}
 	return 0;
 }
+
+static char objname_sprintf_buffer[128];
+
+const char *find_obj_name(uint32_t addr) {
+	int i;
+	for(i=0; i<nr_symtab_entry; i++) {
+		Elf32_Sym *current = &(symtab[i]);
+		if(current->st_info != SYMTAB_TYPE_VAR && current->st_info != SYMTAB_TYPE_FUNC)
+			continue;
+		if(current->st_value <= addr) {
+			uint32_t offset = addr - current->st_value;
+			if(offset >= current->st_size) continue;
+			snprintf(objname_sprintf_buffer, 128, "0x%x <%s+0x%x>", addr, (const char *)(strtab + current->st_name), offset);
+			return objname_sprintf_buffer;
+		}
+	}
+	snprintf(objname_sprintf_buffer, 128, "0x%x", addr);
+	return objname_sprintf_buffer;
+}
