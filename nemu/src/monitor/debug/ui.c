@@ -101,6 +101,10 @@ static int cmd_x(char *args) {
 	}
 
 	arg = strtok(NULL, " ");
+	if(!arg) {
+		printf("Invalid 2nd argument for command 'p'.\n");
+		return 0;
+	}
 	res = expr(arg, &succ);
 	if(!succ) {
 		printf("Invalid expression '%s'\n", arg);
